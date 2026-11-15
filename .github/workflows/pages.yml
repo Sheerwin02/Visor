@@ -1,0 +1,62 @@
+# Build the VISOR web app (Rust/Bevy -> wasm with Trunk, release profile) and publish it to GitHub Pages.
+# Runs on every push to main, or by hand (Actions tab -> "Deploy VISOR to GitHub Pages" -> Run workflow).
+# One-time setup: repo Settings -> Pages -> Build and deployment -> Source: "GitHub Actions".
+name: Deploy VISOR to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# one deployment at a time; a newer push replaces a running one
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    steps:
+      - uses: actions/checkout@v4
+
+      # rust-toolchain.toml pins the compiler (1.99.1) and the wasm32 target; rustup installs both here
+      - name: Install the pinned Rust toolchain
+        run: rustup show
+
+      - name: Cache Rust builds
+        uses: Swatinem/rust-cache@v2
+        with:
+          key: wasm-release
+
+      # same Trunk version the project is built and tested with locally
+      - name: Install Trunk 0.21.14
+        run: |
+          curl -sSL https://github.com/trunk-rs/trunk/releases/download/v0.21.14/trunk-x86_64-unknown-linux-gnu.tar.gz | tar -xz -C /usr/local/bin
+          trunk --version
+
+      # --release turns on wasm-opt (size); the wasm-release profile is fat LTO; relative paths work under /Visor/
+      - name: Build the release web app
+        working-directory: app
+        run: trunk build --release --cargo-profile wasm-release --public-url ./ --dist dist-release
+
+      - name: Upload the site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: app/dist-release
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publish to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
