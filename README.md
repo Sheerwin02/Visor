@@ -1,7 +1,10 @@
 # VISOR
 
 **Measured, then used: a walking-scale Mars map that corrects itself with what the rover found.**
-NASA Space Apps Challenge 2026, "Interplanetary Survival Guide: Martian Map".
+NASA Space Apps Challenge 2026, "Interplanetary Survival Guide: Martian Map". Gan Sheer Win, Team Wynspace.
+
+- **Live app (no login):** https://sheerwin02.github.io/Visor/ (desktop browser with WebGL2)
+- **30 s demo video:** https://www.youtube.com/watch?v=PEEnreSS2ps
 
 VISOR plans a two-person Marswalk across the boxwork ridges of Mount Sharp, Gale crater, through the two sites Curiosity
 drilled (Valle de la Luna in a hollow, Nevado Sajama on a ridge). It layers the USGS 1 m elevation model and 25 cm HiRISE

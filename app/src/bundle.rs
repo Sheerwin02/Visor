@@ -9,15 +9,23 @@ pub struct Inbox(pub Arc<Mutex<Vec<(String, Result<Vec<u8>, String>)>>>);
 
 impl Inbox {
     pub fn request(&self, name: &str) {
+        self.request_try(name, 0);
+    }
+
+    /// `request` again after a stall: a distinct URL (?retry=N), because the browser's HTTP cache makes a second request for
+    /// the same URL wait (up to about 20 s) for the stalled first one. The result arrives under the plain file name.
+    pub fn request_try(&self, name: &str, attempt: u32) {
         let inbox = self.0.clone();
         let name = name.to_string();
         #[cfg(target_arch = "wasm32")]
         wasm_bindgen_futures::spawn_local(async move {
-            let r = fetch_bytes(&format!("assets/{name}")).await;
+            let url = if attempt == 0 { format!("assets/{name}") } else { format!("assets/{name}?retry={attempt}") };
+            let r = fetch_bytes(&url).await;
             inbox.lock().unwrap().push((name, r));
         });
         #[cfg(not(target_arch = "wasm32"))]
         {
+            let _ = attempt;
             let root = std::env::var("VISOR_ASSETS").unwrap_or_else(|_| "../assets".to_string());
             let r = std::fs::read(format!("{root}/{name}")).map_err(|e| e.to_string());
             inbox.lock().unwrap().push((name, r));

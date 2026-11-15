@@ -123,6 +123,7 @@
   "loading": {
     "start": "Loading the map bundle...",
     "file": "Loading {file} ({done} of {total})",
+    "retry": "Still waiting for {file}; asking again ({n} of 3)...",
     "failed": "Could not load {file}. Check your connection and reload. The map needs every file to be honest about its limits, so it will not start with missing data.",
     "webgl": "This browser could not start 3D graphics (WebGL2). Try a current Chrome, Edge, Firefox or Safari.",
     "noscript": "VISOR needs JavaScript and WebGL2 to show the 3D map."

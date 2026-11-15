@@ -127,6 +127,42 @@ struct Loading {
     received: usize,
     done: bool,
     error: Option<String>,
+    /// files that have arrived (a retried request can deliver a second copy: ignored)
+    got: Vec<String>,
+    /// seconds since the last file arrived, and how many times the missing files were asked for again
+    quiet_s: f32,
+    retries: u32,
+}
+
+/// No file for this long (s) while loading: ask again for every missing file (a stalled request on a flaky connection or
+/// a CDN mid-update otherwise left the page at "25 of 26" for minutes). VISUAL / usability choice.
+const RETRY_AFTER_S: f32 = 10.0;
+const MAX_RETRIES: u32 = 3;
+
+/// Files still missing, in request order (manifest.json first until it arrives).
+fn missing(st: &Loading) -> Vec<&'static str> {
+    FILES.iter().copied().filter(|f| !st.got.iter().any(|g| g == f)).collect()
+}
+
+/// Stalled loading: re-request the missing files and say which one the page is waiting for.
+fn loading_watchdog(time: Res<Time>, inbox: Res<Inbox>, mut st: ResMut<Loading>) {
+    if st.done || st.error.is_some() {
+        return;
+    }
+    st.quiet_s += time.delta_secs();
+    if st.quiet_s < RETRY_AFTER_S || st.retries >= MAX_RETRIES {
+        return;
+    }
+    st.quiet_s = 0.0;
+    st.retries += 1;
+    let todo: Vec<&str> = if st.manifest.is_none() { vec!["manifest.json"] } else { missing(&st) };
+    for f in &todo {
+        inbox.request_try(f, st.retries);
+    }
+    if let Some(first) = todo.first() {
+        warn!("loading stalled; asking again for {} file(s), first {first} (retry {})", todo.len(), st.retries);
+        chrome::status(&chrome::fill(text::loading::RETRY, &[("file", first.to_string()), ("n", st.retries.to_string())]));
+    }
 }
 
 fn main() {
@@ -182,6 +218,7 @@ fn main() {
         .init_resource::<astronaut::Track>()
         .add_systems(Startup, (start_loading, model::mount_ui))
         .add_systems(Update, (receive, build_scene, warm_up).chain())
+        .add_systems(Update, loading_watchdog.before(receive))
         .add_systems(PreUpdate, controls::inject_ui_keys.after(bevy::input::InputSystems))
         .add_systems(Update, layerpanel::update.after(trust::toggle))
         .add_systems(Update, (walk::switch_mode, rover_path::toggle, scene::chem::toggle, layers::toggle))
@@ -234,11 +271,16 @@ fn receive(inbox: Res<Inbox>, mut st: ResMut<Loading>) {
             }
             continue;
         }
+        if st.got.contains(&name) {
+            continue;
+        }
         let bytes = match r {
             Ok(b) => b,
             Err(e) if OPTIONAL.contains(&name.as_str()) => {
                 info!("optional {name} not loaded: {e}");
                 st.received += 1;
+                st.got.push(name.clone());
+                st.quiet_s = 0.0;
                 continue;
             }
             Err(e) => {
@@ -249,6 +291,8 @@ fn receive(inbox: Res<Inbox>, mut st: ResMut<Loading>) {
             }
         };
         st.received += 1;
+        st.got.push(name.clone());
+        st.quiet_s = 0.0;
         match name.as_str() {
             "manifest.json" => match serde_json::from_slice::<serde_json::Value>(&bytes) {
                 Ok(m) => {
@@ -290,7 +334,9 @@ fn receive(inbox: Res<Inbox>, mut st: ResMut<Loading>) {
             _ => {}
         }
         if st.error.is_none() && !st.done {
-            let msg = chrome::fill(text::loading::FILE, &[("file", name.clone()), ("done", st.received.to_string()), ("total", FILES.len().to_string())]);
+            // name the file still on its way (not the one that just arrived), so a stall shows what it is waiting for
+            let waiting = missing(&st).first().map(|f| f.to_string()).unwrap_or(name.clone());
+            let msg = chrome::fill(text::loading::FILE, &[("file", waiting), ("done", st.received.to_string()), ("total", FILES.len().to_string())]);
             chrome::status(&msg);
         }
     }
