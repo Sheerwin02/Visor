@@ -1,5 +1,6 @@
 [package]
 name = "route-core"
+license = "AGPL-3.0-only"
 version = "0.1.0"
 edition = "2021"
 description = "VISOR loop planner: the route rule of tools/route.py (option d), in Rust, shared by the web app"

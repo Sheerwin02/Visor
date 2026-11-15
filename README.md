@@ -73,9 +73,16 @@ decision. An AI assistant (Claude by Anthropic, through Claude Code) was used as
 
 Checked by: 170 client tests, Rust crate tests, Python tests, a bundle validator and headless-browser checks; results
 cross-checked against independent references (Python reference code, NASA Mars Trek sun angles, the REMS sunrise/sunset
-feed, Curiosity's measured tilt). No images, video or audio in the project were AI-generated, and no NASA data was
-altered.
+feed, Curiosity's measured tilt). No images or video footage were AI-generated (the demo video is a screen recording of
+the app); the demo video's narration is an AI voice (Qwen3-TTS), labelled on screen and in the file's metadata. No NASA
+data was altered.
 
 ## Licence
 
-Code: to be chosen by the author (Space Apps uses Apache 2.0 if none is given). Data and images keep their own terms (CREDITS.md).
+Copyright (C) 2026 Gan Sheer Win (Team Wynspace).
+
+The VISOR code is licensed under the **GNU Affero General Public License v3.0 only** ([LICENSE](LICENSE)). You may use, study,
+change and share it, but any copy or changed version you distribute or run as a public service must keep this notice and be
+released under the same licence, with its full source. Data, images and models in `assets/` and credited in
+[CREDITS.md](CREDITS.md) (NASA, USGS, University of Arizona, NASA 3D Resources) keep their own terms and are not covered by
+this licence. Libraries VISOR uses keep their own licences (listed in CREDITS.md).

@@ -1,5 +1,6 @@
 [package]
 name = "plan-worker"
+license = "AGPL-3.0-only"
 version = "0.1.0"
 edition = "2021"
 description = "VISOR planner in a Web Worker: route-core off the browser's main thread (built by Trunk from app/index.html)"

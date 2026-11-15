@@ -6,10 +6,10 @@
   <title>VISOR</title>
   <link data-trunk rel="icon" href="favicon.svg" />
   <link data-trunk rel="rust" data-wasm-opt="s"
-        data-wasm-opt-params="--enable-bulk-memory --enable-nontrapping-float-to-int --enable-sign-ext --enable-reference-types" />
+        data-wasm-opt-params="--enable-bulk-memory --enable-nontrapping-float-to-int --enable-sign-ext --enable-reference-types --strip-debug" />
   <link data-trunk rel="copy-dir" href="../assets" />
   <link data-trunk rel="rust" href="../crates/plan-worker/Cargo.toml" data-type="worker" data-wasm-opt="s"
-        data-wasm-opt-params="--enable-bulk-memory --enable-nontrapping-float-to-int --enable-sign-ext --enable-reference-types" />
+        data-wasm-opt-params="--enable-bulk-memory --enable-nontrapping-float-to-int --enable-sign-ext --enable-reference-types --strip-debug" />
   <link data-trunk rel="css" href="style.css" />
 </head>
 <body id="page" data-mode="plan">
