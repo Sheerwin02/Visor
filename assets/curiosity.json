@@ -1,0 +1,28 @@
+{
+ "source": {
+  "name": "NASA Science: Curiosity Rover 3D Model (24584_Curiosity_static.glb)",
+  "url": "https://science.nasa.gov/resource/curiosity-rover-3d-model/",
+  "file": "https://assets.science.nasa.gov/content/dam/science/psd/mars/resources/gltf_files/24584_Curiosity_static.glb",
+  "credit": "NASA/JPL-Caltech (3D model, NASA Science 3D resources); used without NASA endorsement",
+  "terms": "NASA 3D resources are free to use (NASA Images and Media Usage Guidelines)"
+ },
+ "frame": "metres, Y up, faces +Z (arm end), right side -X; origin = centre of the wheel contacts, y 0 at the wheels",
+ "extent_m": {
+  "x": 2.78,
+  "y": 2.22,
+  "z": 3.94
+ },
+ "recentred_by_m": [
+  0.0041,
+  0.0,
+  -0.0344
+ ],
+ "vertices": 63516,
+ "indices": 153915,
+ "pos_offset": 0,
+ "nrm_offset": 762192,
+ "col_offset": 1524384,
+ "idx_offset": 1778448,
+ "layout": "pos f32x3, nrm f32x3, col u8x4 sRGB, idx u32",
+ "method": "tools/curiosity.py: node translation applied, base colour baked per vertex, wheelbase centred"
+}

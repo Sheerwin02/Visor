@@ -1,0 +1,34 @@
+[package]
+name = "visor-app"
+version = "0.1.0"
+edition = "2021"
+publish = false
+description = "VISOR thin client: loads the assets/ bundle and shows the terrain (see the doc's Client build spec)"
+
+[dependencies]
+# Pinned and trimmed per the tested recipe (doc: "Trimmed build test"); add gizmos/picking/pan_orbit_camera when those steps start.
+bevy = { version = "=0.20.1", default-features = false, features = [
+  "default_app", "std", "bevy_winit", "webgl2",
+  "bevy_render", "bevy_core_pipeline", "bevy_pbr", "bevy_camera", "bevy_light",
+  "bevy_mesh", "bevy_image", "bevy_window", "bevy_color", "bevy_shader", "bevy_material",
+  "jpeg", "tonemapping_luts", "zstd_rust",
+] }
+route-core = { path = "../crates/route-core", features = ["json"] }
+serde_json = "1.0.154"
+leafwing-input-manager = { version = "=0.22.0", default-features = false, features = ["keyboard", "mouse"] }
+
+[build-dependencies]
+# build.rs turns text/en.json into typed Rust constants (src/text.rs); preserve_order keeps each section in file order
+serde_json = { version = "1.0.154", features = ["preserve_order"] }
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+wasm-bindgen = "0.2"
+wasm-bindgen-futures = "0.4"
+js-sys = "0.3"
+web-sys = { version = "0.3", features = ["Window", "Storage", "Response", "Document", "Element", "Node", "Location", "EventTarget", "HtmlElement", "DomRect", "MouseEvent", "Event", "HtmlInputElement",
+                                           "History", "Navigator", "Blob", "BlobPropertyBag", "Url", "HtmlAnchorElement",
+                                           "KeyboardEvent", "PointerEvent", "WheelEvent", "HtmlImageElement", "CssStyleDeclaration"] }
+console_error_panic_hook = "0.1.7"
+# HTML user interface (panel, top bar, chips) as Rust components; client-side rendering only. Resolves with Bevy 0.20.1 and
+# wasm-bindgen 0.2.130 (checked).
+leptos = { version = "=0.8.23", features = ["csr"] }

@@ -1,0 +1,4 @@
+# Pinned so every build (and CI) uses the compiler this project was tested with. Bevy 0.20 needs Rust >= 1.97.1.
+[toolchain]
+channel = "1.99.1"
+targets = ["wasm32-unknown-unknown"]

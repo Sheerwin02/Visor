@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VISOR</title>
+  <link data-trunk rel="icon" href="favicon.svg" />
+  <link data-trunk rel="rust" data-wasm-opt="s"
+        data-wasm-opt-params="--enable-bulk-memory --enable-nontrapping-float-to-int --enable-sign-ext --enable-reference-types" />
+  <link data-trunk rel="copy-dir" href="../assets" />
+  <link data-trunk rel="rust" href="../crates/plan-worker/Cargo.toml" data-type="worker" data-wasm-opt="s"
+        data-wasm-opt-params="--enable-bulk-memory --enable-nontrapping-float-to-int --enable-sign-ext --enable-reference-types" />
+  <link data-trunk rel="css" href="style.css" />
+</head>
+<body id="page" data-mode="plan">
+  <canvas id="visor" aria-label="VISOR: 3D map of the Gale crater boxwork walk, built from the USGS elevation model and HiRISE photo"></canvas>
+  <div id="status" role="status" aria-live="polite">Loading the map bundle...</div>
+  <header id="mission-bar" aria-label="Mission"><span class="chip-inline" id="mode" aria-live="polite"></span></header>
+  <nav id="layers" aria-label="Map layers"></nav>
+  <aside id="inspector" aria-label="Inspector"></aside>
+  <section id="timeline" aria-label="EVA timeline"></section>
+  <div class="chip" id="north-wrap" aria-label="North arrow">
+    <svg id="north" viewBox="0 0 28 28" aria-hidden="true"><polygon points="14,2 21,24 14,19 7,24" fill="#f2f2f2"/></svg>
+    <div>N</div>
+  </div>
+  <div class="chip" id="scale" aria-label="Scale bar"><div id="scale-bar"></div><div id="scale-label"></div></div>
+  <div id="mars-host"></div>
+  <div id="hud-host"></div>
+  <div class="chip" id="hud-hidden"></div>
+  <div id="overlay-host"></div>
+  <div class="chip" id="credit"></div>
+  <div id="profile-pin" style="display:none"></div>
+  <noscript>VISOR needs JavaScript and WebGL2 to show the 3D map.</noscript>
+</body>
+</html>

@@ -1,0 +1,17 @@
+V=0.6 m/s (assumed). P(found) within 15/30/60/120 min; median time of those found; 90th-percentile time (inf = not reached in 120 min)
+
+R= 10 m  sigma=  10 m | 15min   97%  30min   97%  60min   97%  120min   97% | median   0.2 min | p90    3.8 min
+R= 10 m  sigma=  25 m | 15min   90%  30min   97%  60min   98%  120min   98% | median   3.8 min | p90   14.6 min
+R= 10 m  sigma=  50 m | 15min   48%  30min   73%  60min   92%  120min   99% | median  15.4 min | p90   57.2 min
+R= 10 m  sigma= 100 m | 15min   15%  30min   28%  60min   48%  120min   73% | median  41.1 min | p90    inf min
+R= 10 m  sigma= 150 m | 15min    7%  30min   13%  60min   25%  120min   44% | median  51.7 min | p90    inf min
+R= 20 m  sigma=  10 m | 15min   97%  30min   97%  60min   97%  120min   97% | median   0.0 min | p90    0.2 min
+R= 20 m  sigma=  25 m | 15min   94%  30min   96%  60min   96%  120min   96% | median   2.6 min | p90    8.1 min
+R= 20 m  sigma=  50 m | 15min   68%  30min   90%  60min   97%  120min   98% | median   7.5 min | p90   29.3 min
+R= 20 m  sigma= 100 m | 15min   28%  30min   48%  60min   73%  120min   92% | median  27.9 min | p90  114.4 min
+R= 20 m  sigma= 150 m | 15min   14%  30min   25%  60min   45%  120min   69% | median  43.5 min | p90    inf min
+R= 40 m  sigma=  10 m | 15min  100%  30min  100%  60min  100%  120min  100% | median   0.0 min | p90    0.0 min
+R= 40 m  sigma=  25 m | 15min   94%  30min   96%  60min   96%  120min   96% | median   0.0 min | p90   10.9 min
+R= 40 m  sigma=  50 m | 15min   85%  30min   94%  60min   96%  120min   96% | median   5.2 min | p90   16.1 min
+R= 40 m  sigma= 100 m | 15min   49%  30min   68%  60min   90%  120min   97% | median  14.9 min | p90   58.5 min
+R= 40 m  sigma= 150 m | 15min   27%  30min   44%  60min   69%  120min   89% | median  30.6 min | p90    inf min

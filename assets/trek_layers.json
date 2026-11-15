@@ -1,0 +1,177 @@
+{
+ "source": {
+  "name": "NASA Mars Trek (JPL Solar System Treks)",
+  "url": "https://trek.nasa.gov/mars/",
+  "credit": "NASA/JPL-Caltech Mars Trek; products credited to their instrument teams",
+  "service": "https://trek.nasa.gov/tiles/Mars/EQ/<label>/1.0.0/default/default028mm/<level>/<row>/<col>.png (WMTS, EPSG:104905)"
+ },
+ "note": "view-only context layers composited offline by tools/trek.py; measurements use the USGS 1 m DEM and 25 cm photo",
+ "patch_bbox_deg": [
+  137.378111,
+  -4.814796,
+  137.387441,
+  -4.796609
+ ],
+ "not_tiled": [
+  "frt_07_brphyj_mtr3_ll (CRISM Fe-Mg-OH phyllosilicates)",
+  "frt_07_brcarj_mtr3_ll (CRISM Fe-Mg carbonates)"
+ ],
+ "excluded": [
+  "Gale_CTX_BlockAdj_dd (MRO CTX, Gale Crater Mosaic): does not line up with the HiRISE products here (tools/trek.py)"
+ ],
+ "deep_link": "https://trek.nasa.gov/mars/#v=0.1&x={lon}&y={lat}&z={z}&p=urn%3Aogc%3Adef%3Acrs%3AEPSG%3A%3A104905&d=&locale=&b=mars&e={w}%2C{s}%2C{e}%2C{n}&sfz=&w=",
+ "deep_link_zoom": 16,
+ "centre_deg": [
+  137.382776,
+  -4.805703
+ ],
+ "layers": [
+  {
+   "label": "curiosity_hirise_mosaic",
+   "role": "basemap",
+   "kind": "Imagery",
+   "short": "HiRISE mosaic",
+   "title": "MRO HiRISE, Curiosity Roving Site Mosaic",
+   "instrument": "HiRISE",
+   "uuid": "b40d61ea-a26b-48e1-bdec-5f5ed5cf73d5",
+   "level": 16,
+   "m_per_px": 0.636,
+   "patch_px": [
+    869.6,
+    1695.1
+   ],
+   "data_share": 1.0,
+   "tiles": 40,
+   "file": "trek_curiosity_hirise_mosaic.jpg",
+   "width": 1106,
+   "height": 2156,
+   "offset_vs_usgs_photo": {
+    "east_m": 0,
+    "north_m": 0,
+    "corr_best": 0.912,
+    "corr_unshifted": 0.912,
+    "search_m": 80,
+    "note": "reported, not applied; positive east = Trek content sits east of ours"
+   }
+  },
+  {
+   "label": "curiosity_ctx_mosaic",
+   "role": "basemap",
+   "kind": "Imagery",
+   "short": "CTX mosaic",
+   "title": "MRO CTX, Curiosity Roving Site Mosaic",
+   "instrument": "CTX",
+   "uuid": "bea6179f-534d-4d03-980e-589fcd915673",
+   "level": 10,
+   "m_per_px": 40.701,
+   "patch_px": [
+    13.6,
+    26.5
+   ],
+   "data_share": 1.0,
+   "tiles": 1,
+   "file": "trek_curiosity_ctx_mosaic.jpg",
+   "width": 553,
+   "height": 1078,
+   "offset_vs_usgs_photo": {
+    "east_m": -2,
+    "north_m": 0,
+    "corr_best": 0.9,
+    "corr_unshifted": 0.899,
+    "search_m": 80,
+    "note": "reported, not applied; positive east = Trek content sits east of ours"
+   }
+  },
+  {
+   "label": "THEMIS_NightIR_ControlledMosaics_100m_v2_oct2018",
+   "role": "basemap",
+   "kind": "Thermal",
+   "short": "THEMIS night IR",
+   "title": "MO THEMIS-IR Night, Global Mosaic",
+   "instrument": "THEMIS",
+   "uuid": "ecbd1840-2302-49c8-be40-86740c21ea98",
+   "level": 9,
+   "m_per_px": 81.401,
+   "patch_px": [
+    6.8,
+    13.2
+   ],
+   "data_share": 1.0,
+   "tiles": 1,
+   "file": "trek_THEMIS_NightIR_ControlledMosaics_100m_v2_oct2018.jpg",
+   "width": 553,
+   "height": 1078
+  },
+  {
+   "label": "THEMIS_DayIR_ControlledMosaics_100m_v2_oct2018",
+   "role": "basemap",
+   "kind": "Thermal",
+   "short": "THEMIS day IR",
+   "title": "MO THEMIS-IR Day, Global Mosaic",
+   "instrument": "THEMIS",
+   "uuid": "26a567c7-79b5-4b8b-a7d6-3276b267150f",
+   "level": 9,
+   "m_per_px": 81.401,
+   "patch_px": [
+    6.8,
+    13.2
+   ],
+   "data_share": 1.0,
+   "tiles": 1,
+   "file": "trek_THEMIS_DayIR_ControlledMosaics_100m_v2_oct2018.jpg",
+   "width": 553,
+   "height": 1078
+  },
+  {
+   "label": "SIM3292_Global_Geology",
+   "role": "readiness",
+   "kind": "Geology",
+   "short": "Global geologic map",
+   "title": "Global Geology",
+   "instrument": null,
+   "uuid": "7adfee63-ef92-4ea7-9ff9-b934cd4bf629",
+   "level": 11,
+   "m_per_px": 20.35,
+   "patch_px": [
+    27.2,
+    53.0
+   ],
+   "data_share": 0.0,
+   "tiles": 1
+  },
+  {
+   "label": "TES_Thermal_Inertia",
+   "role": "readiness",
+   "kind": "Thermal",
+   "short": "TES thermal inertia",
+   "title": "MGS TES, Global Thermal Inertia",
+   "instrument": "TES",
+   "uuid": "0370fb88-8efd-4844-9e92-74665f342c33",
+   "level": 1,
+   "m_per_px": 20838.761,
+   "patch_px": [
+    0.0,
+    0.1
+   ],
+   "data_share": 1.0,
+   "tiles": 1
+  },
+  {
+   "label": "TES_Glass_Clay",
+   "role": "readiness",
+   "kind": "Spectral",
+   "short": "TES sheet silicates / high-Si glass",
+   "title": "MGS TES, Global Sheet Silicates/High-Si Glass",
+   "instrument": "TES",
+   "uuid": "a4170f68-83f3-43c3-b549-4c27d866bcee",
+   "level": 1,
+   "m_per_px": 20838.761,
+   "patch_px": [
+    0.0,
+    0.1
+   ],
+   "data_share": 1.0,
+   "tiles": 1
+  }
+ ]
+}

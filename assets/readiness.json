@@ -1,0 +1,52 @@
+{
+ "rule": "doc: Data readiness part B v2, wide registration (approved by the author)",
+ "run_utc": "2026-11-12T16:43:09Z",
+ "verdict": "NOT THIS DTM",
+ "width": 553,
+ "height": 1078,
+ "cell_m": 1.0,
+ "encoding": "uint8 row-major, row 0 north",
+ "classes": {
+  "0": "source unknown",
+  "1": "agrees",
+  "2": "partial",
+  "3": "disagrees",
+  "4": "rover-checked"
+ },
+ "thresholds_deg": {
+  "agree": 2.0,
+  "partial": 3.0
+ },
+ "comparison": {
+  "dtm": "DTEEC_009149_1750_009294_1750_U01",
+  "url": "https://www.uahirise.org/dtm/dtm.php?ID=PSP_009149_1750",
+  "credit": "NASA/JPL/University of Arizona (HiRISE DTM DTEEC_009149_1750_009294_1750_U01)"
+ },
+ "result": {
+  "n_common": 589626,
+  "coverage": 1.0,
+  "share": {
+   "agree": 0.3541,
+   "partial": 0.1373,
+   "disagree": 0.5086
+  },
+  "median_abs_slope_diff_deg": 3.071,
+  "p90_abs_slope_diff_deg": 9.616,
+  "median_abs_dz_m": 0.322,
+  "p90_abs_dz_m": 0.835,
+  "shift_m": {
+   "east": -67.0,
+   "north": -26.0,
+   "meaning": "UA sampled this far east/north of each mosaic cell"
+  },
+  "baseline_p5_deg": 4.059
+ },
+ "replaces": "v1 (+-5 m search): NOT THIS DTM, recorded in the doc",
+ "class_counts": {
+  "source unknown": 6508,
+  "agrees": 208197,
+  "partial": 80665,
+  "disagrees": 298588,
+  "rover-checked": 2176
+ }
+}

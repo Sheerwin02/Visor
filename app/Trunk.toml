@@ -1,0 +1,7 @@
+# Trunk config for the web client: `trunk build` (or `trunk serve`) from app/.
+[build]
+target = "index.html"
+dist = "dist"
+# Everyday builds use the light wasm-dev profile; the public release uses:
+#   trunk build --cargo-profile wasm-release
+cargo_profile = "wasm-dev"

@@ -1,0 +1,452 @@
+<title>VISOR Transect Planner</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout concept: a field notebook meets a visor readout. One stage column (map, then transect profile)
+   beside a narrow column of questions, controls and reasons. Teal is the route, three hues mark the three sampling contexts. */
+:root{
+  --bg:#edf0ee; --surface:#f9fbfa; --surface-2:#eff3f1; --ink:#18221f; --muted:#556661; --line:#d2dad6;
+  --route:#0b8a85; --ridge:#b4701a; --wall:#c23a5a; --hollow:#2b8a55; --warn:#b4531c;
+  --t-low:228 217 198; --t-high:168 104 80; --halo:249 251 250;
+  --font-display:'Space Grotesk',system-ui,sans-serif; --font-body:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif; --font-mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0c1113; --surface:#131a1d; --surface-2:#192225; --ink:#e4ece9; --muted:#8c9d98; --line:#26332f;
+    --route:#4fd6cf; --ridge:#f0b44c; --wall:#ee7b93; --hollow:#6fd08c; --warn:#f08b52;
+    --t-low:64 58 52; --t-high:150 96 74; --halo:19 26 29; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0c1113; --surface:#131a1d; --surface-2:#192225; --ink:#e4ece9; --muted:#8c9d98; --line:#26332f;
+  --route:#4fd6cf; --ridge:#f0b44c; --wall:#ee7b93; --hollow:#6fd08c; --warn:#f08b52;
+  --t-low:64 58 52; --t-high:150 96 74; --halo:19 26 29; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:14px;line-height:1.5;
+  padding-block:20px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1180px;margin:0 auto}
+h1,h2,h3{font-family:var(--font-display);font-weight:600;margin:0;text-wrap:balance}
+h1{font-size:22px;letter-spacing:-.01em}
+h2{font-size:14px;letter-spacing:.01em}
+p{margin:0}
+a{color:var(--route)}
+.top{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;justify-content:space-between;margin-bottom:16px}
+.brand p{color:var(--muted);max-width:62ch;margin-top:2px}
+.chip{font-family:var(--font-mono);font-size:11.5px;border:1px solid var(--warn);color:var(--warn);padding:4px 10px;border-radius:999px;white-space:nowrap}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:16px;align-items:start}
+.stage,.side{display:flex;flex-direction:column;gap:16px;min-width:0}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px}
+.card>h2{margin-bottom:8px}
+.stats{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 10px;min-width:0}
+.stat dt{font-size:11px;color:var(--muted);margin:0}
+.stat dd{margin:2px 0 0;font-family:var(--font-mono);font-size:15px;font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.stat dd small{font-size:11px;color:var(--muted)}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:10px}
+.toolbar .grow{flex:1}
+button,input[type=number]{font:inherit;color:var(--ink)}
+.btn{background:var(--surface-2);border:1px solid var(--line);border-radius:7px;padding:6px 10px;cursor:pointer;font-size:13px}
+.btn:hover{border-color:var(--route)}
+.btn[aria-pressed="true"]{background:color-mix(in srgb,var(--warn) 18%,var(--surface));border-color:var(--warn)}
+.btn:focus-visible,input:focus-visible,.cand:focus-visible{outline:2px solid var(--route);outline-offset:2px}
+.seed{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:12.5px}
+.seed input{width:64px;background:var(--surface-2);border:1px solid var(--line);border-radius:7px;padding:5px 7px;font-family:var(--font-mono)}
+.mapwrap{position:relative;line-height:0}
+canvas{display:block;width:100%;border-radius:8px;background:var(--surface-2)}
+#map{cursor:crosshair;aspect-ratio:8/5}
+#map.pick{cursor:pointer}
+#prof{height:262px}
+.status{position:absolute;left:10px;bottom:10px;line-height:1.4;font-family:var(--font-mono);font-size:11.5px;background:rgb(var(--halo)/.86);border:1px solid var(--line);border-radius:6px;padding:3px 8px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:10px;font-size:12px;color:var(--muted)}
+.legend i{display:inline-block;vertical-align:-2px;margin-right:6px}
+.dot{width:10px;height:10px;border-radius:50%}
+.bar{width:18px;height:3px;border-radius:2px;background:var(--route)}
+.shade{width:18px;height:10px;border-radius:2px;background:color-mix(in srgb,var(--route) 35%,transparent)}
+.cap{font-size:12px;color:var(--muted);margin-top:8px}
+.ctl{display:grid;gap:2px;margin-bottom:12px}
+.ctl label{display:flex;justify-content:space-between;gap:8px;font-size:13px}
+.ctl output{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
+.ctl small{color:var(--muted);font-size:11.5px}
+input[type=range]{width:100%;accent-color:var(--route)}
+.cands{display:grid;gap:6px}
+.cand{display:grid;grid-template-columns:24px 1fr;gap:2px 8px;text-align:left;background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:7px 9px;cursor:pointer}
+.cand[aria-pressed="true"]{border-color:var(--route);background:color-mix(in srgb,var(--route) 10%,var(--surface))}
+.cand b{font-family:var(--font-mono);font-weight:500;grid-row:span 2;align-self:center;color:var(--route)}
+.cand span{font-size:12.5px}
+.cand em{font-style:normal;font-family:var(--font-mono);font-size:11.5px;color:var(--muted)}
+.cand.over em{color:var(--warn)}
+.why ul{margin:0;padding-left:18px;display:grid;gap:7px}
+.why li{font-size:13px}
+.why code,.science code{font-family:var(--font-mono);font-size:12px}
+.science p{font-size:13px}
+.science p+p{margin-top:6px}
+.sw{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;vertical-align:0}
+.foot{margin-top:16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.foot p,.foot li{font-size:12.5px;color:var(--muted)}
+.foot ul{margin:6px 0 0;padding-left:18px;display:grid;gap:4px}
+.foot h2{color:var(--ink)}
+@media (max-width:1000px){
+  .layout{grid-template-columns:minmax(0,1fr)}
+  .stats{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media (max-width:520px){
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  h1{font-size:19px}
+}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <h1>VISOR Transect Planner</h1>
+      <p>Plan one walk that samples a ridge top, a ridge wall and a hollow floor, then see how far each leg can be trusted.</p>
+    </div>
+    <span class="chip">Synthetic terrain, not real Mars data</span>
+  </header>
+
+  <dl class="stats" id="stats" aria-live="polite"></dl>
+
+  <div class="layout" style="margin-top:12px">
+    <section class="stage">
+      <div class="card">
+        <div class="toolbar">
+          <button class="btn" id="blockBtn" aria-pressed="false" type="button">Block a path</button>
+          <button class="btn" id="clearBtn" type="button">Clear blocks</button>
+          <span class="grow"></span>
+          <label class="seed" for="seed">Patch <input id="seed" type="number" min="1" max="9999" value="7"></label>
+          <button class="btn" id="newBtn" type="button">New patch</button>
+        </div>
+        <div class="mapwrap">
+          <canvas id="map" role="img" aria-label="Top-down view of generated boxwork terrain with the planned loop"></canvas>
+          <div class="status" id="status">Starting</div>
+        </div>
+        <div class="legend" aria-hidden="true">
+          <span><i class="bar"></i>Planned loop</span>
+          <span><i class="shade"></i>Within 2 m of simulated routes (darker means more often)</span>
+          <span><i class="dot" style="background:var(--ridge)"></i>1 Ridge top</span>
+          <span><i class="dot" style="background:var(--wall)"></i>2 Wall</span>
+          <span><i class="dot" style="background:var(--hollow)"></i>3 Hollow floor</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Transect profile along the loop</h2>
+        <canvas id="prof" role="img" aria-label="Elevation along the planned loop with an error band"></canvas>
+        <p class="cap">Shaded band: the middle 80% of elevations along this same path across the simulated terrains. A wide band means the data could hide a ridge or a gap there.</p>
+      </div>
+    </section>
+
+    <aside class="side">
+      <div class="card science">
+        <h2>The science question</h2>
+        <p>Curiosity drilled a ridge top, hollow bedrock and a transition area, and found clay in the ridge and carbonate in the hollow. NASA says it cannot yet explain why nodules sit along ridge walls and in hollows but not near the fractures.</p>
+        <p>One loop that touches all three contexts gives an astronaut the whole contrast in a single walk. <a href="https://www.jpl.nasa.gov/news/nasas-curiosity-rover-sees-martian-spiderwebs-up-close/" target="_blank" rel="noopener">NASA JPL article</a></p>
+      </div>
+
+      <div class="card">
+        <h2>Suit and terrain assumptions</h2>
+        <div class="ctl"><label for="limit">Steepest step the suit allows <output id="limitO"></output></label><input id="limit" type="range" min="12" max="35" step="1" value="24"><small>Assumption. Real suit limits are not public.</small></div>
+        <div class="ctl"><label for="sigma">Terrain error <output id="sigmaO"></output></label><input id="sigma" type="range" min="0" max="1.5" step="0.1" value="0.5"><small>Assumption. The 1 m Gale DEM lists about 1 m vertical accuracy.</small></div>
+        <div class="ctl"><label for="radius">Max distance from habitat <output id="radiusO"></output></label><input id="radius" type="range" min="40" max="110" step="5" value="80"></div>
+        <div class="ctl" style="margin-bottom:0"><label for="budget">Time budget <output id="budgetO"></output></label><input id="budget" type="range" min="10" max="45" step="1" value="25"><small>Walking 0.6 m/s on level ground and 3 min per stop are assumptions.</small></div>
+      </div>
+
+      <div class="card">
+        <h2>Candidate loops, ranked</h2>
+        <div class="cands" id="cands"></div>
+        <p class="cap">Score is metres of ridge-to-hollow relief per 100 effort-metres. Pick one to simulate it.</p>
+      </div>
+
+      <div class="card why">
+        <h2>Why this loop</h2>
+        <ul id="why"></ul>
+      </div>
+    </aside>
+  </div>
+
+  <div class="foot">
+    <div>
+      <h2>What this prototype is</h2>
+      <p>A planning sketch. The terrain is generated to match NASA's reported boxwork sizes (ridges 1 to 2 m tall, hollows 10 to 20 m across). The real build would use the USGS Gale 1 m elevation model (Calef and Parker, 2016) and Curiosity photos from the PDS.</p>
+    </div>
+    <div>
+      <h2>What it does not do yet</h2>
+      <ul>
+        <li>No real radiation data. A sol-by-sol dose scenario needs the MSL RAD archive.</li>
+        <li>Effort is a simple grade and surface model, not a measured suit or metabolic model.</li>
+        <li>The science score is a heuristic of mine, not a NASA metric.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+'use strict';
+var W=160,H=100,N=W*H,SPEED=0.6,STOP_MIN=3,NS=24;
+function $(id){return document.getElementById(id);}
+function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+function rngFrom(seed){var a=seed>>>0;return function(){a=(a+0x6D2B79F5)>>>0;var t=a;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return((t^(t>>>14))>>>0)/4294967296;};}
+function gauss(r){var u=0;while(u===0)u=r();var v=r();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);}
+function smooth(t){return t*t*(3-2*t);}
+function makeLat(cols,rows,gen){var a=new Float32Array(cols*rows);for(var i=0;i<a.length;i++)a[i]=gen();return{cols:cols,rows:rows,a:a};}
+function sampleLat(L,fx,fy){var x=clamp(fx,0,L.cols-1.001),y=clamp(fy,0,L.rows-1.001);var x0=Math.floor(x),y0=Math.floor(y);var tx=smooth(x-x0),ty=smooth(y-y0);var i=y0*L.cols+x0;var a=L.a[i],b=L.a[i+1],c=L.a[i+L.cols],d=L.a[i+L.cols+1];return(a*(1-tx)+b*tx)*(1-ty)+(c*(1-tx)+d*tx)*ty;}
+
+var state={seed:7,limit:24,sigma:0.5,radius:80,budget:25,blocks:[],blockMode:false,sel:0,cands:[],token:0,mc:null};
+var height=new Float32Array(N),seeds=[],startIdx=0,blocked=new Uint8Array(N),tanL=Math.tan(24*Math.PI/180);
+
+function genTerrain(seed){
+  var rng=rngFrom(seed*7919+13);
+  seeds=[];
+  for(var r=0;r<5;r++)for(var c=0;c<8;c++)seeds.push([(c+0.5)*20+(rng()-0.5)*11,(r+0.5)*20+(rng()-0.5)*11]);
+  var amp=makeLat(16,10,rng),und=makeLat(26,16,rng),wxl=makeLat(12,8,rng),wyl=makeLat(12,8,rng);
+  for(var y=0;y<H;y++)for(var x=0;x<W;x++){
+    var px=x+0.5+(sampleLat(wxl,(x+0.5)/16,(y+0.5)/16)-0.5)*14,py=y+0.5+(sampleLat(wyl,(x+0.5)/16,(y+0.5)/16)-0.5)*14,d1=1e9,d2=1e9,i1=-1,i2=-1;
+    for(var s=0;s<seeds.length;s++){var d=Math.hypot(px-seeds[s][0],py-seeds[s][1]);if(d<d1){d2=d1;i2=i1;d1=d;i1=s;}else if(d<d2){d2=d;i2=s;}}
+    var sep=Math.hypot(seeds[i1][0]-seeds[i2][0],seeds[i1][1]-seeds[i2][1]);
+    var b=(d2*d2-d1*d1)/(2*sep);
+    var a=0.55+1.5*sampleLat(amp,(x+0.5)/12,(y+0.5)/12);
+    var ridge=a*Math.exp(-(b*b)/(2*2.1*2.1));
+    var u=0.28*(sampleLat(und,px/7,py/7)-0.5);
+    height[y*W+x]=ridge+u;
+  }
+  var s0=seeds[2*8+1];startIdx=Math.round(s0[1])*W+Math.round(s0[0]);
+}
+
+function applyBlocks(){
+  blocked.fill(0);
+  for(var k=0;k<state.blocks.length;k++){var b=state.blocks[k];
+    for(var y=Math.max(0,Math.floor(b[1]-b[2]));y<=Math.min(H-1,Math.ceil(b[1]+b[2]));y++)for(var x=Math.max(0,Math.floor(b[0]-b[2]));x<=Math.min(W-1,Math.ceil(b[0]+b[2]));x++){if(Math.hypot(x-b[0],y-b[1])<=b[2])blocked[y*W+x]=1;}}
+  blocked[startIdx]=0;
+}
+
+/* Binary heap */
+function Heap(){this.k=[];this.v=[];}
+Heap.prototype.push=function(key,val){var k=this.k,v=this.v,i=k.length;k.push(key);v.push(val);while(i>0){var p=(i-1)>>1;if(k[p]<=key)break;k[i]=k[p];v[i]=v[p];i=p;}k[i]=key;v[i]=val;};
+Heap.prototype.pop=function(){var k=this.k,v=this.v,top=v[0],lk=k.pop(),lv=v.pop(),n=k.length;if(n>0){var i=0;for(;;){var c=2*i+1;if(c>=n)break;if(c+1<n&&k[c+1]<k[c])c++;if(k[c]>=lk)break;k[i]=k[c];v[i]=v[c];i=c;}k[i]=lk;v[i]=lv;}return top;};
+Object.defineProperty(Heap.prototype,'size',{get:function(){return this.k.length;}});
+
+var G=new Float32Array(N),PAR=new Int32Array(N),SEEN=new Int32Array(N),DONE=new Int32Array(N),stampN=0;
+var DX=[1,-1,0,0,1,1,-1,-1],DY=[0,0,1,-1,1,-1,1,-1];
+function stepCost(hf,i,j,ds){var dh=hf[j]-hf[i],gr=Math.abs(dh)/ds;if(gr>tanL)return Infinity;var mat=hf[j]<0.25?1.25:(hf[j]>0.8?1.1:1);return ds*(1+8*Math.pow(gr,1.5)*(dh>0?1:0.6))*mat;}
+function astar(hf,from,to){
+  if(blocked[from]||blocked[to])return null;
+  var st=++stampN,tx=to%W,ty=(to/W)|0,heap=new Heap();
+  G[from]=0;PAR[from]=-1;SEEN[from]=st;heap.push(0,from);
+  while(heap.size){
+    var i=heap.pop();if(DONE[i]===st)continue;DONE[i]=st;if(i===to)break;
+    var x=i%W,y=(i/W)|0;
+    for(var k=0;k<8;k++){var nx=x+DX[k],ny=y+DY[k];if(nx<0||ny<0||nx>=W||ny>=H)continue;var j=ny*W+nx;if(blocked[j]||DONE[j]===st)continue;
+      var c=stepCost(hf,i,j,k<4?1:1.4142);if(c===Infinity)continue;var ng=G[i]+c;
+      if(SEEN[j]!==st||ng<G[j]){SEEN[j]=st;G[j]=ng;PAR[j]=i;heap.push(ng+Math.hypot(nx-tx,ny-ty),j);}}
+  }
+  if(DONE[to]!==st)return null;
+  var path=[];for(var c2=to;c2!==-1;c2=PAR[c2])path.push(c2);path.reverse();
+  return{path:path,cost:G[to]};
+}
+function dijkstra(from){
+  var dist=new Float32Array(N).fill(Infinity),heap=new Heap(),done=new Uint8Array(N);
+  dist[from]=0;heap.push(0,from);
+  while(heap.size){var i=heap.pop();if(done[i])continue;done[i]=1;var x=i%W,y=(i/W)|0;
+    for(var k=0;k<8;k++){var nx=x+DX[k],ny=y+DY[k];if(nx<0||ny<0||nx>=W||ny>=H)continue;var j=ny*W+nx;if(blocked[j]||done[j])continue;
+      var c=stepCost(height,i,j,k<4?1:1.4142);if(c===Infinity)continue;var nd=dist[i]+c;if(nd<dist[j]){dist[j]=nd;heap.push(nd,j);}}}
+  return dist;
+}
+function pathLen(p){var L=0;for(var i=1;i<p.length;i++){var dx=Math.abs((p[i]%W)-(p[i-1]%W)),dy=Math.abs(((p[i]/W)|0)-((p[i-1]/W)|0));L+=(dx&&dy)?1.4142:1;}return L;}
+function maxGrade(p,hf){var m=0;for(var i=1;i<p.length;i++){var dx=Math.abs((p[i]%W)-(p[i-1]%W)),dy=Math.abs(((p[i]/W)|0)-((p[i-1]/W)|0));var ds=(dx&&dy)?1.4142:1;m=Math.max(m,Math.abs(hf[p[i]]-hf[p[i-1]])/ds);}return Math.atan(m)*180/Math.PI;}
+
+function evalLoop(R,F){
+  var a=astar(height,startIdx,R),b=astar(height,R,F),c=astar(height,F,startIdx);
+  if(!a||!b||!c)return null;
+  var bp=b.path,wi=Math.floor(bp.length/2),best=-1;
+  for(var i=1;i<bp.length-1;i++){var g=Math.abs(height[bp[i+1]]-height[bp[i-1]]);if(g>best){best=g;wi=i;}}
+  var W_=bp[wi],effort=a.cost+b.cost+c.cost,len=pathLen(a.path)+pathLen(bp)+pathLen(c.path);
+  var all=[].concat(a.path,bp.slice(1),c.path.slice(1));
+  return{R:R,F:F,W:W_,paths:[a.path,bp,c.path],effort:effort,length:len,time:effort/SPEED/60+3*STOP_MIN,relief:height[R]-height[F],
+    grade:Math.max(maxGrade(a.path,height),maxGrade(bp,height),maxGrade(c.path,height)),score:(height[R]-height[F])/effort*100,all:all};
+}
+
+function buildCandidates(){
+  tanL=Math.tan(state.limit*Math.PI/180);applyBlocks();
+  var dist=dijkstra(startIdx),sx=startIdx%W,sy=(startIdx/W)|0,list=[];
+  for(var s=0;s<seeds.length;s++){
+    var fx=Math.round(seeds[s][0]),fy=Math.round(seeds[s][1]),F=fy*W+fx;
+    if(!isFinite(dist[F])||Math.hypot(fx-sx,fy-sy)>state.radius||Math.hypot(fx-sx,fy-sy)<28)continue;
+    var R=-1,hb=-1;
+    for(var y=Math.max(0,fy-16);y<=Math.min(H-1,fy+16);y++)for(var x=Math.max(0,fx-16);x<=Math.min(W-1,fx+16);x++){
+      var i=y*W+x;if(Math.hypot(x-fx,y-fy)>16||!isFinite(dist[i])||Math.hypot(x-sx,y-sy)>state.radius)continue;
+      if(height[i]>hb){hb=height[i];R=i;}}
+    if(R<0||height[R]-height[F]<0.5||Math.hypot((R%W)-sx,((R/W)|0)-sy)<22)continue;
+    var rx=R%W,ry=(R/W)|0,dup=false;
+    for(var q=0;q<list.length;q++){if(Math.hypot(list[q].rx-rx,list[q].ry-ry)<8){dup=true;break;}}
+    if(dup)continue;
+    list.push({R:R,F:F,rx:rx,ry:ry,approx:(height[R]-height[F])/(dist[R]+dist[F]+1.5*Math.hypot(rx-fx,ry-fy))});
+  }
+  list.sort(function(a,b){return b.approx-a.approx;});
+  var out=[];
+  for(var k=0;k<Math.min(8,list.length);k++){var e=evalLoop(list[k].R,list[k].F);if(e){e.rx=list[k].rx;e.ry=list[k].ry;e.over=e.time>state.budget;out.push(e);}}
+  out.sort(function(a,b){if(a.over!==b.over)return a.over?1:-1;return b.score-a.score;});
+  state.cands=out;state.sel=0;
+}
+
+/* Monte Carlo over terrain error */
+function sleep(){return new Promise(function(r){setTimeout(r,0);});}
+async function runMC(plan,token){
+  var rng=rngFrom(state.seed*31+5+Math.round(state.sigma*100)),LC=Math.ceil(W/6)+2,LR=Math.ceil(H/6)+2;
+  var freq=new Uint16Array(N),mark=new Int32Array(N),ok=0,hf2=new Float32Array(N);
+  var all=plan.all,prof=[];for(var i=0;i<all.length;i++)prof.push(new Float32Array(NS));
+  for(var r=0;r<NS;r++){
+    var lat=makeLat(LC,LR,function(){return gauss(rng)*state.sigma;});
+    for(var y=0;y<H;y++)for(var x=0;x<W;x++)hf2[y*W+x]=height[y*W+x]+sampleLat(lat,(x+0.5)/6,(y+0.5)/6);
+    var a=astar(hf2,startIdx,plan.R),b=a&&astar(hf2,plan.R,plan.F),c=b&&astar(hf2,plan.F,startIdx);
+    if(a&&b&&c){ok++;var ps=[a.path,b.path,c.path];for(var p=0;p<3;p++)for(var q=0;q<ps[p].length;q++){var cell=ps[p][q],cx=cell%W,cy=(cell/W)|0;for(var oy=-2;oy<=2;oy++)for(var ox=-2;ox<=2;ox++){var qx=cx+ox,qy=cy+oy;if(qx<0||qy<0||qx>=W||qy>=H)continue;var qi=qy*W+qx;if(mark[qi]!==r+1){mark[qi]=r+1;freq[qi]++;}}}}
+    for(var t=0;t<all.length;t++)prof[t][r]=hf2[all[t]];
+    if(r%3===2){await sleep();if(token!==state.token)return null;setStatus('Simulating terrain error '+(r+1)+'/'+NS);}
+  }
+  var lo=new Float32Array(all.length),hi=new Float32Array(all.length);
+  for(var t2=0;t2<all.length;t2++){var arr=Array.prototype.slice.call(prof[t2]).sort(function(m,n){return m-n;});lo[t2]=arr[Math.floor(0.1*(NS-1))];hi[t2]=arr[Math.ceil(0.9*(NS-1))];}
+  var firm=0,legFirm=[0,0,0],legN=[0,0,0];
+  for(var l=0;l<3;l++){for(var z=0;z<plan.paths[l].length;z++){var cc=plan.paths[l][z];var isF=ok>0&&freq[cc]>=0.8*ok;legN[l]++;if(isF){legFirm[l]++;firm++;}}}
+  var tot=legN[0]+legN[1]+legN[2];
+  return{freq:freq,ok:ok,lo:lo,hi:hi,firm:tot?firm/tot:0,legFirm:legFirm.map(function(v,i){return legN[i]?v/legN[i]:0;})};
+}
+
+/* Drawing */
+function cssv(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim();}
+function rgbv(n){return cssv(n).split(/\s+/).map(Number);}
+var base=document.createElement('canvas');base.width=W;base.height=H;
+function buildBase(){
+  var lo=rgbv('--t-low'),hi=rgbv('--t-high'),ctx=base.getContext('2d'),img=ctx.createImageData(W,H),L=[-0.5,-0.6,0.62],ln=Math.hypot(L[0],L[1],L[2]);
+  for(var y=0;y<H;y++)for(var x=0;x<W;x++){
+    var i=y*W+x,xl=Math.max(0,x-1),xr=Math.min(W-1,x+1),yu=Math.max(0,y-1),yd=Math.min(H-1,y+1);
+    var gx=(height[y*W+xr]-height[y*W+xl])/(xr-xl),gy=(height[yd*W+x]-height[yu*W+x])/(yd-yu),k=1.5;
+    var nx=-gx*k,ny=-gy*k,nz=1,nl=Math.hypot(nx,ny,nz);
+    var dot=(nx*L[0]+ny*L[1]+nz*L[2])/(nl*ln),sh=clamp(0.55+0.8*dot,0.35,1.15),t=clamp(height[i]/1.9,0,1);
+    for(var c=0;c<3;c++)img.data[i*4+c]=clamp((lo[c]+(hi[c]-lo[c])*t)*sh,0,255);
+    img.data[i*4+3]=255;
+  }
+  ctx.putImageData(img,0,0);
+}
+function fitCanvas(cv,hCss){var dpr=Math.min(window.devicePixelRatio||1,2),w=cv.clientWidth,h=hCss||cv.clientHeight;cv.width=Math.round(w*dpr);cv.height=Math.round(h*dpr);var ctx=cv.getContext('2d');ctx.setTransform(dpr,0,0,dpr,0,0);return{ctx:ctx,w:w,h:h};}
+function halo(ctx,txt,x,y,col){ctx.lineWidth=3;ctx.strokeStyle='rgb('+cssv('--halo').split(/\s+/).join(',')+')';ctx.lineJoin='round';ctx.strokeText(txt,x,y);ctx.fillStyle=col;ctx.fillText(txt,x,y);}
+function cur(){return state.cands[state.sel]||null;}
+
+function drawMap(){
+  var cv=$('map'),f=fitCanvas(cv),ctx=f.ctx,sc=f.w/W,route=cssv('--route'),ink=cssv('--ink');
+  ctx.imageSmoothingEnabled=true;ctx.drawImage(base,0,0,f.w,f.h);
+  var sx=startIdx%W,sy=(startIdx/W)|0;
+  ctx.save();ctx.setLineDash([5,5]);ctx.strokeStyle=cssv('--muted');ctx.lineWidth=1;ctx.beginPath();ctx.arc((sx+0.5)*sc,(sy+0.5)*sc,state.radius*sc,0,Math.PI*2);ctx.stroke();ctx.restore();
+  for(var b=0;b<state.blocks.length;b++){var bl=state.blocks[b];ctx.beginPath();ctx.arc((bl[0]+0.5)*sc,(bl[1]+0.5)*sc,bl[2]*sc,0,Math.PI*2);ctx.fillStyle=cssv('--warn');ctx.globalAlpha=0.35;ctx.fill();ctx.globalAlpha=1;ctx.setLineDash([4,3]);ctx.strokeStyle=cssv('--warn');ctx.lineWidth=1.5;ctx.stroke();ctx.setLineDash([]);}
+  var p=cur();
+  if(p&&state.mc){var fr=state.mc.freq,ok=Math.max(1,state.mc.ok);ctx.fillStyle=route;
+    for(var i=0;i<N;i++){if(fr[i]>0){ctx.globalAlpha=0.12+0.5*(fr[i]/ok);ctx.fillRect((i%W)*sc,((i/W)|0)*sc,sc+0.5,sc+0.5);}}ctx.globalAlpha=1;}
+  if(p){
+    for(var l=0;l<3;l++){var pts=p.paths[l];ctx.beginPath();for(var k=0;k<pts.length;k++){var X=((pts[k]%W)+0.5)*sc,Y=(((pts[k]/W)|0)+0.5)*sc;if(k)ctx.lineTo(X,Y);else ctx.moveTo(X,Y);}
+      ctx.lineJoin='round';ctx.lineCap='round';ctx.strokeStyle='rgb('+cssv('--halo').split(/\s+/).join(',')+')';ctx.globalAlpha=0.8;ctx.lineWidth=(l===1?5.5:4.5);ctx.stroke();ctx.globalAlpha=1;ctx.strokeStyle=route;ctx.lineWidth=(l===1?3.2:2);ctx.stroke();}
+  }
+  ctx.font='600 11px Inter,system-ui,sans-serif';ctx.textBaseline='middle';
+  for(var c=0;c<state.cands.length;c++){if(c===state.sel)continue;var e=state.cands[c],X2=(e.rx+0.5)*sc,Y2=(e.ry+0.5)*sc;ctx.beginPath();ctx.arc(X2,Y2,7,0,Math.PI*2);ctx.fillStyle='rgb('+cssv('--halo').split(/\s+/).join(',')+')';ctx.globalAlpha=0.85;ctx.fill();ctx.globalAlpha=1;ctx.strokeStyle=cssv('--muted');ctx.lineWidth=1.2;ctx.stroke();ctx.fillStyle=ink;ctx.textAlign='center';ctx.fillText(String(c+1),X2,Y2+0.5);}
+  ctx.textAlign='left';
+  function mark(idx,color,label){var X=((idx%W)+0.5)*sc,Y=(((idx/W)|0)+0.5)*sc,hc='rgb('+cssv('--halo').split(/\s+/).join(',')+')';ctx.beginPath();ctx.arc(X,Y,8.5,0,Math.PI*2);ctx.fillStyle=color;ctx.fill();ctx.lineWidth=2;ctx.strokeStyle=hc;ctx.stroke();ctx.font='700 11px Inter,system-ui,sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle=hc;ctx.fillText(label,X,Y+0.5);ctx.textAlign='left';}
+  ctx.beginPath();var HX=(sx+0.5)*sc,HY=(sy+0.5)*sc;ctx.rect(HX-6,HY-6,12,12);ctx.fillStyle=ink;ctx.fill();ctx.lineWidth=2;ctx.strokeStyle='rgb('+cssv('--halo').split(/\s+/).join(',')+')';ctx.stroke();ctx.font='600 11.5px Inter,system-ui,sans-serif';halo(ctx,'Habitat',HX+10,HY+14,ink);
+  if(p){mark(p.R,cssv('--ridge'),'1');mark(p.W,cssv('--wall'),'2');mark(p.F,cssv('--hollow'),'3');}
+}
+
+function niceStep(L){var c=[10,20,25,50,100];for(var i=0;i<c.length;i++)if(L/c[i]<=8)return c[i];return 100;}
+function drawProfile(){
+  var cv=$('prof'),f=fitCanvas(cv,262),ctx=f.ctx,w=f.w,h=f.h,p=cur();
+  var ink=cssv('--ink'),muted=cssv('--muted'),line=cssv('--line'),route=cssv('--route');
+  ctx.clearRect(0,0,w,h);ctx.font='11px "JetBrains Mono",ui-monospace,monospace';
+  if(!p){return;}
+  var all=p.all,n=all.length,d=[0];for(var i=1;i<n;i++){var dx=Math.abs((all[i]%W)-(all[i-1]%W)),dy=Math.abs(((all[i]/W)|0)-((all[i-1]/W)|0));d.push(d[i-1]+((dx&&dy)?1.4142:1));}
+  var L=d[n-1],m={l:54,r:14,t:64,b:30},pw=w-m.l-m.r,ph=h-m.t-m.b,mc=state.mc;
+  var zmin=1e9,zmax=-1e9;for(var j=0;j<n;j++){var a=height[all[j]],lo=mc?mc.lo[j]:a,hi=mc?mc.hi[j]:a;zmin=Math.min(zmin,a,lo);zmax=Math.max(zmax,a,hi);}
+  zmin=Math.floor((zmin-0.15)*2)/2;zmax=Math.ceil((zmax+0.15)*2)/2;
+  function X(v){return m.l+v/L*pw;}function Y(z){return m.t+(1-(z-zmin)/(zmax-zmin))*ph;}
+  ctx.lineWidth=1;ctx.strokeStyle=line;ctx.fillStyle=muted;ctx.textAlign='right';ctx.textBaseline='middle';
+  for(var z=zmin;z<=zmax+1e-6;z+=0.5){ctx.beginPath();ctx.moveTo(m.l,Y(z));ctx.lineTo(w-m.r,Y(z));ctx.stroke();ctx.fillText(z.toFixed(1),m.l-6,Y(z));}
+  ctx.textAlign='center';ctx.textBaseline='top';var st=niceStep(L);for(var v=0;v<=L;v+=st){ctx.fillText(String(v),X(v),h-m.b+7);}
+  ctx.textAlign='right';ctx.fillText('m along loop',w-m.r,h-14);ctx.save();ctx.translate(10,m.t+ph/2);ctx.rotate(-Math.PI/2);ctx.textAlign='center';ctx.fillText('relative elevation (m)',0,0);ctx.restore();
+  if(mc){ctx.beginPath();for(var k=0;k<n;k++){var xx=X(d[k]),yy=Y(mc.hi[k]);if(k)ctx.lineTo(xx,yy);else ctx.moveTo(xx,yy);}for(var k2=n-1;k2>=0;k2--)ctx.lineTo(X(d[k2]),Y(mc.lo[k2]));ctx.closePath();ctx.fillStyle=route;ctx.globalAlpha=0.2;ctx.fill();ctx.globalAlpha=1;}
+  var iR=all.indexOf(p.R),iW=all.indexOf(p.W),iF=all.indexOf(p.F,iR);
+  function seg(a0,a1,lw){ctx.beginPath();for(var q=a0;q<=a1;q++){if(q>a0)ctx.lineTo(X(d[q]),Y(height[all[q]]));else ctx.moveTo(X(d[q]),Y(height[all[q]]));}ctx.lineWidth=lw;ctx.lineJoin='round';ctx.strokeStyle=route;ctx.stroke();}
+  seg(0,n-1,1.6);seg(iR,iF,3.4);
+  var marks=[[iR,'--ridge','Ridge top'],[iW,'--wall','Wall'],[iF,'--hollow','Hollow floor']];
+  ctx.font='600 11.5px Inter,system-ui,sans-serif';
+  marks.forEach(function(mk,idx){var xx=X(d[mk[0]]),yy=Y(height[all[mk[0]]]);ctx.setLineDash([3,3]);ctx.strokeStyle=cssv(mk[1]);ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(xx,16+idx*16);ctx.lineTo(xx,h-m.b);ctx.stroke();ctx.setLineDash([]);ctx.beginPath();ctx.arc(xx,yy,5,0,Math.PI*2);ctx.fillStyle=cssv(mk[1]);ctx.fill();ctx.strokeStyle='rgb('+cssv('--halo').split(/\s+/).join(',')+')';ctx.lineWidth=2;ctx.stroke();
+    var lab=(idx+1)+' '+mk[2],lw=ctx.measureText(lab).width,fl=xx+6+lw>w-4;ctx.textAlign=fl?'right':'left';ctx.textBaseline='middle';halo(ctx,lab,fl?xx-6:xx+6,16+idx*16,ink);});
+}
+
+/* Text */
+function setStatus(t){$('status').textContent=t;}
+function fmt(v,d){return v.toFixed(d);}
+function renderStats(){
+  var p=cur(),mc=state.mc,el=$('stats');
+  if(!p){el.innerHTML='<div class="stat" style="grid-column:1/-1"><dt>No feasible loop</dt><dd style="white-space:normal;font-family:var(--font-body);font-size:13px">Raise the steepest-step limit or the distance, or clear blocked paths.</dd></div>';return;}
+  var margin=state.budget-p.time;
+  var items=[['Loop length',fmt(p.length,0)+' <small>m</small>'],['Time',fmt(p.time,0)+' <small>of '+state.budget+' min</small>'],['Return margin',(margin>=0?'+':'')+fmt(margin,0)+' <small>min</small>'],['Steepest step',fmt(p.grade,0)+'<small>° of '+state.limit+'°</small>'],['Relief reached',fmt(p.relief,1)+' <small>m</small>'],['Trusted route',mc?fmt(mc.firm*100,0)+'<small>% · '+mc.ok+'/'+NS+' ok</small>':'<small>simulating</small>']];
+  el.innerHTML=items.map(function(it){return '<div class="stat"><dt>'+it[0]+'</dt><dd>'+it[1]+'</dd></div>';}).join('');
+}
+function renderCands(){
+  var el=$('cands');if(!state.cands.length){el.innerHTML='<p class="cap">No candidate loop fits these limits.</p>';return;}
+  el.innerHTML=state.cands.map(function(c,i){return '<button type="button" class="cand'+(c.over?' over':'')+'" data-i="'+i+'" aria-pressed="'+(i===state.sel)+'"><b>'+(i+1)+'</b><span>Relief '+fmt(c.relief,1)+' m, loop '+fmt(c.length,0)+' m</span><em>score '+fmt(c.score,2)+' · '+fmt(c.time,0)+' min'+(c.over?' · over budget':'')+'</em></button>';}).join('');
+  Array.prototype.forEach.call(el.querySelectorAll('.cand'),function(b){b.addEventListener('click',function(){select(+b.dataset.i);});});
+}
+var LEGS=['the walk out to the ridge top','the transect from ridge top down to the hollow','the return to the habitat'];
+function renderWhy(){
+  var p=cur(),el=$('why');if(!p){el.innerHTML='<li>No loop to explain yet.</li>';return;}
+  var mc=state.mc,items=[];
+  var sw=function(c){return '<span class="sw" style="background:var(--'+c+')"></span>';};
+  items.push('Touches the three contexts Curiosity drilled: '+sw('ridge')+'a ridge top, '+sw('wall')+'a wall (steepest part of the descent) and '+sw('hollow')+'a hollow floor, '+fmt(p.relief,1)+' m lower.');
+  var rank=state.sel+1,next=state.cands[state.sel+1];
+  items.push('Ranked #'+rank+' of '+state.cands.length+' candidate hollows by relief per effort ('+fmt(p.score,2)+' m per 100 effort-m)'+(next&&!p.over?'; the next one scores '+fmt(next.score,2)+'.':'.'));
+  var runs=0,lowest=9,legsOut=[p.paths[0],p.paths[2]];
+  legsOut.forEach(function(path,li){var inRun=false,mx=0,hasEnd=false;for(var i=0;i<path.length;i++){var h=height[path[i]];if(h>0.5){if(!inRun){inRun=true;mx=0;hasEnd=false;}mx=Math.max(mx,h);if(path[i]===p.R)hasEnd=true;}else if(inRun){inRun=false;if(!hasEnd){runs++;lowest=Math.min(lowest,mx);}}}if(inRun&&!hasEnd){runs++;lowest=Math.min(lowest,mx);}});
+  items.push(runs?'Crosses '+runs+' ridge crest'+(runs>1?'s':'')+' on the way out and back; the lowest crossing is '+fmt(lowest,1)+' m high'+(lowest<1?', so it uses gaps instead of climbing the tall crests.':', still tall, but within the suit limit.'):'Stays in hollows and gaps on the way out and back; no crest crossings.');
+  items.push('Steepest single step is '+fmt(p.grade,0)+'°, under the '+state.limit+'° suit limit you set. '+(state.blocks.length?state.blocks.length+' blocked area'+(state.blocks.length>1?'s are':' is')+' avoided.':''));
+  if(mc){var worst=0;for(var l=1;l<3;l++)if(mc.legFirm[l]<mc.legFirm[worst])worst=l;
+    items.push(mc.ok===0?'None of the '+NS+' simulated terrains gave a route, so this loop is fragile at '+fmt(state.sigma,1)+' m of error.':fmt(mc.firm*100,0)+'% of the route sits in places that at least 80% of simulated routes pass within 2 m of. Least certain: '+LEGS[worst]+' ('+fmt(mc.legFirm[worst]*100,0)+'% firm).');}
+  else items.push('Simulating terrain error to see how much of this route holds up.');
+  el.innerHTML=items.map(function(t){return '<li>'+t+'</li>';}).join('');
+}
+function redraw(){renderStats();renderCands();renderWhy();drawMap();drawProfile();}
+
+async function simulate(){
+  var p=cur(),tk=++state.token;state.mc=null;redraw();
+  if(!p){setStatus('No feasible loop');return;}
+  setStatus('Simulating terrain error 0/'+NS);
+  var res=await runMC(p,tk);if(res===null||tk!==state.token)return;
+  state.mc=res;setStatus('Ready · '+NS+' simulated terrains at '+fmt(state.sigma,1)+' m error');redraw();
+}
+function select(i){state.sel=i;simulate();}
+function replan(){buildCandidates();simulate();}
+var timer=null;function later(){clearTimeout(timer);timer=setTimeout(replan,140);}
+
+/* Controls */
+function bindRange(id,key,unit,dec){var el=$(id),o=$(id+'O');function upd(){state[key]=parseFloat(el.value);o.textContent=state[key].toFixed(dec||0)+' '+unit;}el.addEventListener('input',function(){upd();later();});upd();}
+bindRange('limit','limit','°',0);bindRange('sigma','sigma','m',1);bindRange('radius','radius','m',0);bindRange('budget','budget','min',0);
+$('blockBtn').addEventListener('click',function(){state.blockMode=!state.blockMode;this.setAttribute('aria-pressed',state.blockMode);$('map').className=state.blockMode?'':'pick';setStatus(state.blockMode?'Click the map to place a blocked area':'Ready');});
+$('clearBtn').addEventListener('click',function(){state.blocks=[];replan();});
+function newPatch(seed){state.seed=seed;state.blocks=[];$('seed').value=seed;genTerrain(seed);buildBase();replan();}
+$('newBtn').addEventListener('click',function(){newPatch(1+Math.floor(Math.random()*9998));});
+$('seed').addEventListener('change',function(){var v=parseInt(this.value,10);if(v>=1&&v<=9999)newPatch(v);});
+$('map').addEventListener('click',function(ev){
+  var r=this.getBoundingClientRect(),sc=r.width/W,x=(ev.clientX-r.left)/sc-0.5,y=(ev.clientY-r.top)/sc-0.5;
+  if(state.blockMode){state.blocks.push([x,y,6]);replan();return;}
+  var best=-1,bd=16/sc;state.cands.forEach(function(c,i){var d=Math.hypot(c.rx-x,c.ry-y);if(d<bd){bd=d;best=i;}});if(best>=0)select(best);
+});
+$('map').className='pick';
+window.addEventListener('resize',function(){drawMap();drawProfile();});
+if(window.ResizeObserver){new ResizeObserver(function(){drawMap();drawProfile();}).observe($('map'));}
+function themeChanged(){buildBase();redraw();}
+try{window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',themeChanged);}catch(e){}
+new MutationObserver(themeChanged).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){drawMap();drawProfile();});
+
+genTerrain(state.seed);buildBase();replan();
+window.__visor={state:state,replan:replan,select:select};
+})();
+</script>

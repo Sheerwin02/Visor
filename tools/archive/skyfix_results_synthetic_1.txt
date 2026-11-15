@@ -1,0 +1,20 @@
+candidate search radius 240 m, spacing 30 m; truth hit if error <= ~30 m grid limit
+
+relief rms 5 m (FOV360)            skyline_std= 1.50deg  median_err= 116.2 m  p90= 292.3 m  within60m=  32%  better_than_prior=  38%  median_ambig= 222.4 m
+relief rms 15 m (FOV360)           skyline_std= 5.86deg  median_err= 189.2 m  p90= 289.7 m  within60m=  18%  better_than_prior=  20%  median_ambig= 270.0 m
+relief rms 40 m (FOV360)           skyline_std=12.48deg  median_err= 171.2 m  p90= 299.5 m  within60m=  22%  better_than_prior=  22%  median_ambig= 237.2 m
+relief rms 100 m (FOV360)          skyline_std=16.42deg  median_err= 157.1 m  p90= 302.1 m  within60m=  25%  better_than_prior=  20%  median_ambig= 244.6 m
+
+FOV 360 deg (relief 40)            skyline_std=12.48deg  median_err= 171.2 m  p90= 299.5 m  within60m=  22%  better_than_prior=  22%  median_ambig= 237.2 m
+FOV 180 deg (relief 40)            skyline_std=12.48deg  median_err= 120.4 m  p90= 263.7 m  within60m=  25%  better_than_prior=  35%  median_ambig= 217.4 m
+FOV 90 deg (relief 40)             skyline_std=12.48deg  median_err= 149.0 m  p90= 257.2 m  within60m=  22%  better_than_prior=  25%  median_ambig= 182.3 m
+
+DEM err 0.3 m corr 8.0 m           skyline_std=12.48deg  median_err= 171.2 m  p90= 315.0 m  within60m=  18%  better_than_prior=  20%  median_ambig= 286.0 m
+DEM err 1.0 m corr 8.0 m           skyline_std=12.48deg  median_err= 171.2 m  p90= 299.5 m  within60m=  22%  better_than_prior=  22%  median_ambig= 237.2 m
+DEM err 3.0 m corr 8.0 m           skyline_std=12.48deg  median_err= 172.8 m  p90= 289.7 m  within60m=  20%  better_than_prior=  25%  median_ambig= 225.3 m
+DEM err 10.0 m corr 8.0 m          skyline_std=12.48deg  median_err= 161.2 m  p90= 268.2 m  within60m=  18%  better_than_prior=  22%  median_ambig= 264.0 m
+
+skyline noise 0.05 deg             skyline_std=12.48deg  median_err= 171.2 m  p90= 299.5 m  within60m=  22%  better_than_prior=  22%  median_ambig= 237.2 m
+skyline noise 0.15 deg             skyline_std=12.48deg  median_err= 171.2 m  p90= 299.5 m  within60m=  22%  better_than_prior=  22%  median_ambig= 237.2 m
+skyline noise 0.5 deg              skyline_std=12.48deg  median_err= 171.2 m  p90= 299.5 m  within60m=  22%  better_than_prior=  22%  median_ambig= 237.2 m
+skyline noise 1.0 deg              skyline_std=12.48deg  median_err= 171.2 m  p90= 299.5 m  within60m=  22%  better_than_prior=  22%  median_ambig= 237.2 m

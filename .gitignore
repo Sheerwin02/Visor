@@ -1,0 +1,28 @@
+# Large data: never commit (download instructions in README / CLAUDE.md)
+data/
+*.tif
+*.tiff
+*.img
+# Build output
+target/
+**/target/
+app/dist/
+app/dist-release/
+app/dist-check/
+# Python
+__pycache__/
+.pytest_cache/
+*.pyc
+.venv/
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+# Planning, docs and AI notes: kept local, not in the repo (author's choice, Nov 11)
+docs/
+AI_USE_LOG.md
+CLAUDE.md
+.claude/
+research_notes/
+reports/

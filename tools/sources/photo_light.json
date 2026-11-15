@@ -1,0 +1,13 @@
+{
+ "description": "Illumination baked into the orthophoto at the VISOR patch: HiRISE RED observation PSP_009149_1750 covers the whole patch (latitude -4.9437 to -4.6531, longitude 137.3501 to 137.4714). Whether it is the strip actually visible in the USGS colour mosaic at the patch is UNVERIFIED (the USGS product page was not readable). Values copied from the PDS label; sun elevation and azimuth are derived in tools/build_bundle.py.",
+ "observation": "PSP_009149_1750",
+ "label_url": "https://hirise-pds.lpl.arizona.edu/PDS/RDR/PSP/ORB_009100_009199/PSP_009149_1750/PSP_009149_1750_RED.LBL",
+ "page_url": "https://www.uahirise.org/PSP_009149_1750",
+ "start_time_utc": "2008-07-09T09:24:54",
+ "local_time_h": 15.48044,
+ "solar_longitude": 96.272867,
+ "incidence_angle": 58.808048,
+ "sub_solar_azimuth": 213.082441,
+ "north_azimuth": 269.999999,
+ "azimuth_convention": "SUB_SOLAR_AZIMUTH and NORTH_AZIMUTH are degrees clockwise from the line from the image centre to its right edge (HiRISE data dictionary, Observation Geometry): sun azimuth from north = SUB_SOLAR_AZIMUTH - NORTH_AZIMUTH"
+}

@@ -1,0 +1,24 @@
+far horizon (>=300 m), unknown heading, search radius 240 m, grid 30 m, n=40 each
+
+relief rms 1 m                     skyline_std= 0.04deg  median_err= 154.9 m  p90= 263.4 m  within60m=   5%  better_than_prior=  28%  median_ambig= 391.2 m
+relief rms 2 m                     skyline_std= 0.12deg  median_err=  54.5 m  p90= 117.1 m  within60m=  52%  better_than_prior=  65%  median_ambig= 321.0 m
+relief rms 5 m                     skyline_std= 0.37deg  median_err=  14.8 m  p90=  39.8 m  within60m=  98%  better_than_prior=  80%  median_ambig= 101.5 m
+relief rms 10 m                    skyline_std= 0.77deg  median_err=  12.6 m  p90=  32.9 m  within60m=  98%  better_than_prior=  88%  median_ambig=  36.2 m
+relief rms 40 m                    skyline_std= 3.15deg  median_err=  12.9 m  p90=  34.0 m  within60m=  95%  better_than_prior=  90%  median_ambig=   0.0 m
+
+relief 2 m, camera noise 0.15 deg  skyline_std= 0.12deg  median_err=  54.5 m  p90= 117.1 m  within60m=  52%  better_than_prior=  65%  median_ambig= 321.0 m
+relief 2 m, camera noise 0.5 deg   skyline_std= 0.12deg  median_err=  95.6 m  p90= 199.4 m  within60m=  28%  better_than_prior=  40%  median_ambig= 366.2 m
+relief 2 m, camera noise 1.0 deg   skyline_std= 0.12deg  median_err= 174.4 m  p90= 265.1 m  within60m=  10%  better_than_prior=  18%  median_ambig= 414.6 m
+relief 5 m, camera noise 0.15 deg  skyline_std= 0.37deg  median_err=  14.8 m  p90=  39.8 m  within60m=  98%  better_than_prior=  80%  median_ambig= 101.5 m
+relief 5 m, camera noise 0.5 deg   skyline_std= 0.37deg  median_err=  21.0 m  p90=  86.6 m  within60m=  80%  better_than_prior=  72%  median_ambig= 307.4 m
+relief 5 m, camera noise 1.0 deg   skyline_std= 0.37deg  median_err=  63.1 m  p90= 202.8 m  within60m=  48%  better_than_prior=  48%  median_ambig= 361.2 m
+
+relief 5 m, DEM err 1.0 m corr 8 m skyline_std= 0.37deg  median_err=  14.8 m  p90=  39.8 m  within60m=  98%  better_than_prior=  80%  median_ambig= 101.5 m
+relief 5 m, DEM err 3.0 m corr 8 m skyline_std= 0.37deg  median_err=  36.3 m  p90= 115.5 m  within60m=  72%  better_than_prior=  70%  median_ambig= 237.2 m
+relief 5 m, DEM err 10.0 m corr 8 m skyline_std= 0.37deg  median_err= 144.1 m  p90= 217.2 m  within60m=  12%  better_than_prior=  30%  median_ambig= 278.1 m
+relief 5 m, DEM err 3.0 m corr 100 m skyline_std= 0.37deg  median_err=  85.9 m  p90= 237.7 m  within60m=  40%  better_than_prior=  48%  median_ambig= 276.6 m
+relief 5 m, DEM err 10.0 m corr 100 m skyline_std= 0.37deg  median_err= 196.4 m  p90= 335.9 m  within60m=   5%  better_than_prior=  12%  median_ambig= 196.7 m
+
+relief 5 m, FOV 180 deg            skyline_std= 0.37deg  median_err=  24.2 m  p90=  86.4 m  within60m=  82%  better_than_prior=  78%  median_ambig= 200.9 m
+relief 5 m, FOV 120 deg            skyline_std= 0.37deg  median_err=  36.2 m  p90= 224.2 m  within60m=  65%  better_than_prior=  68%  median_ambig= 283.8 m
+relief 5 m, FOV 60 deg             skyline_std= 0.37deg  median_err=  97.9 m  p90= 269.0 m  within60m=  30%  better_than_prior=  38%  median_ambig= 338.7 m

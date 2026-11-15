@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- VISOR browser icon: Mars (drawn by hand for this project; no NASA logo or artwork) -->
+  <defs>
+    <radialGradient id="body" cx="38%" cy="34%" r="70%">
+      <stop offset="0" stop-color="#f2a065"/>
+      <stop offset="0.55" stop-color="#cf5f2c"/>
+      <stop offset="1" stop-color="#7a2a10"/>
+    </radialGradient>
+    <radialGradient id="shade" cx="30%" cy="28%" r="80%">
+      <stop offset="0.6" stop-color="#000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0.45"/>
+    </radialGradient>
+    <clipPath id="disk"><circle cx="32" cy="32" r="29"/></clipPath>
+  </defs>
+  <circle cx="32" cy="32" r="29" fill="url(#body)"/>
+  <g clip-path="url(#disk)" fill="#8f3416" opacity="0.75">
+    <path d="M10 36c6-5 13-3 17-7s10-4 13 0 9 4 14 1v8c-6 3-11 1-15 4s-11 3-16-1-9-2-13 1z"/>
+    <ellipse cx="44" cy="21" rx="5" ry="2.6"/>
+    <ellipse cx="22" cy="49" rx="6" ry="2.4"/>
+  </g>
+  <g clip-path="url(#disk)">
+    <ellipse cx="30" cy="4.5" rx="13" ry="5.5" fill="#fbf4ec"/>
+    <circle cx="32" cy="32" r="29" fill="url(#shade)"/>
+  </g>
+  <circle cx="32" cy="32" r="29" fill="none" stroke="#2a0f05" stroke-opacity="0.5" stroke-width="1.5"/>
+</svg>

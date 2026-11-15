@@ -1,0 +1,209 @@
+{
+ "rule": "Proposal tab, 'RAD rule' (approved, before any value)",
+ "source": {
+  "name": "MSL RAD RDR, PDS Planetary Plasma Interactions node, MSL-M-RAD-3-RDR-V1.0",
+  "url": "https://pds-ppi.igpp.ucla.edu/data/MSL-M-RAD-3-RDR-V1.0/",
+  "sis": "https://pds-ppi.igpp.ucla.edu/data/MSL-M-RAD-3-RDR-V1.0/DOCUMENT/RAD_RDR_SIS.HTM",
+  "credit": "NASA/JPL-Caltech/SwRI (MSL RAD)"
+ },
+ "units": "microGray/hour (RAD RDR SIS 4.2.1.6); B = silicon detector, E = plastic scintillator",
+ "context_only": "no conversion to mSv or tissue dose; never a route limit",
+ "sols": [
+  {
+   "sol": 4618,
+   "archived": true,
+   "files": [
+    "RAD_RDR_2025_214_13_01_4618_V00.TXT"
+   ],
+   "n_observations": 174,
+   "n_with_dose": 87,
+   "n_solar_event_mode": 0,
+   "qc_values": [
+    "00000000",
+    "00000001"
+   ],
+   "b_excluded": 0,
+   "b_n": 87,
+   "b_median": 7.1678,
+   "b_p10": 6.8703,
+   "b_p90": 7.6058,
+   "b_solar_event_median": null,
+   "e_excluded": 0,
+   "e_n": 87,
+   "e_median": 6.8933,
+   "e_p10": 6.7318,
+   "e_p90": 7.0615,
+   "e_solar_event_median": null,
+   "first_start_lmst": "4618 0:12:36",
+   "last_start_lmst": "4618 23:55:57",
+   "gap_min_s": 242,
+   "gap_max_s": 1695,
+   "valid": true
+  },
+  {
+   "sol": 4625,
+   "archived": true,
+   "files": [
+    "RAD_RDR_2025_221_17_31_4625_V00.TXT"
+   ],
+   "n_observations": 174,
+   "n_with_dose": 87,
+   "n_solar_event_mode": 0,
+   "qc_values": [
+    "00000000",
+    "00000001"
+   ],
+   "b_excluded": 0,
+   "b_n": 87,
+   "b_median": 7.0845,
+   "b_p10": 6.7672,
+   "b_p90": 7.3629,
+   "b_solar_event_median": null,
+   "e_excluded": 0,
+   "e_n": 87,
+   "e_median": 6.77,
+   "e_p10": 6.6352,
+   "e_p90": 6.9342,
+   "e_solar_event_median": null,
+   "first_start_lmst": "4625 0:00:18",
+   "last_start_lmst": "4625 23:43:39",
+   "gap_min_s": 546,
+   "gap_max_s": 1084,
+   "valid": true
+  },
+  {
+   "sol": 4634,
+   "archived": true,
+   "files": [
+    "RAD_RDR_2025_230_23_28_4634_V00.TXT"
+   ],
+   "n_observations": 176,
+   "n_with_dose": 88,
+   "n_solar_event_mode": 0,
+   "qc_values": [
+    "00000000",
+    "00000001"
+   ],
+   "b_excluded": 0,
+   "b_n": 88,
+   "b_median": 7.0628,
+   "b_p10": 6.7145,
+   "b_p90": 7.4366,
+   "b_solar_event_median": null,
+   "e_excluded": 0,
+   "e_n": 88,
+   "e_median": 6.6842,
+   "e_p10": 6.5176,
+   "e_p90": 6.8888,
+   "e_solar_event_median": null,
+   "first_start_lmst": "4634 0:04:25",
+   "last_start_lmst": "4634 23:47:48",
+   "gap_min_s": 358,
+   "gap_max_s": 1026,
+   "valid": true
+  },
+  {
+   "sol": 4650,
+   "archived": true,
+   "files": [
+    "RAD_RDR_2025_247_10_02_4650_V00.TXT"
+   ],
+   "n_observations": 174,
+   "n_with_dose": 87,
+   "n_solar_event_mode": 0,
+   "qc_values": [
+    "00000000",
+    "00000001"
+   ],
+   "b_excluded": 0,
+   "b_n": 87,
+   "b_median": 6.9656,
+   "b_p10": 6.7092,
+   "b_p90": 7.4004,
+   "b_solar_event_median": null,
+   "e_excluded": 0,
+   "e_n": 87,
+   "e_median": 6.5757,
+   "e_p10": 6.4605,
+   "e_p90": 6.7826,
+   "e_solar_event_median": null,
+   "first_start_lmst": "4650 0:04:21",
+   "last_start_lmst": "4650 23:47:42",
+   "gap_min_s": 426,
+   "gap_max_s": 1129,
+   "valid": true
+  },
+  {
+   "sol": 4687,
+   "archived": true,
+   "files": [
+    "RAD_RDR_2025_285_10_25_4687_V00.TXT"
+   ],
+   "n_observations": 174,
+   "n_with_dose": 87,
+   "n_solar_event_mode": 0,
+   "qc_values": [
+    "00000000",
+    "00000001"
+   ],
+   "b_excluded": 0,
+   "b_n": 87,
+   "b_median": 6.9872,
+   "b_p10": 6.6936,
+   "b_p90": 7.5253,
+   "b_solar_event_median": null,
+   "e_excluded": 0,
+   "e_n": 87,
+   "e_median": 6.6293,
+   "e_p10": 6.5113,
+   "e_p90": 6.8095,
+   "e_solar_event_median": null,
+   "first_start_lmst": "4687 0:02:05",
+   "last_start_lmst": "4687 23:45:26",
+   "gap_min_s": 424,
+   "gap_max_s": 1520,
+   "valid": true
+  },
+  {
+   "sol": 4711,
+   "archived": true,
+   "files": [
+    "RAD_RDR_2025_310_02_13_4711_V00.TXT"
+   ],
+   "n_observations": 174,
+   "n_with_dose": 87,
+   "n_solar_event_mode": 0,
+   "qc_values": [
+    "00000000",
+    "00000001"
+   ],
+   "b_excluded": 0,
+   "b_n": 87,
+   "b_median": 6.6983,
+   "b_p10": 6.3004,
+   "b_p90": 7.0792,
+   "b_solar_event_median": null,
+   "e_excluded": 0,
+   "e_n": 87,
+   "e_median": 6.1547,
+   "e_p10": 5.9471,
+   "e_p90": 6.3779,
+   "e_solar_event_median": null,
+   "first_start_lmst": "4711 0:14:50",
+   "last_start_lmst": "4711 23:58:11",
+   "gap_min_s": 758,
+   "gap_max_s": 1121,
+   "valid": true
+  }
+ ],
+ "space_weather": {
+  "source": "NASA DONKI via api.nasa.gov",
+  "range": [
+   "2025-05-08",
+   "2026-04-13"
+  ],
+  "rule": "CME/SEP records naming Mars, MSL or Curiosity among affected targets",
+  "events": [],
+  "note": "space weather list not available (CME not fetched)"
+ }
+}

@@ -1,0 +1,733 @@
+{
+ "description": "Curated stop list for the VISOR boxwork loop. Every fact has a source page that was opened and a short quote. Positions are taken from PLACES localized_pos by (site, drive) at build time; a stop's position is the rover's parked position when the target was studied, NOT the target itself (the arm reaches about 2.2 m). Photos are filled in only after reuse terms are checked.",
+ "position_rule": "rover position from PLACES localized_pos (site, drive); expected accuracy about 0.5 m vs the base map (PLACES SIS)",
+ "straight_line_loop_m": 399.9,
+ "loop_note": "straight lines between stops and back to the first; the walked route is longer",
+ "stops": [
+  {
+   "id": "exit",
+   "name": "Notional exit point",
+   "kind": "exit",
+   "sol": 4618,
+   "site": "118",
+   "drive": "198",
+   "lat": -4.805495075,
+   "lon": 137.379535793,
+   "e_m": 84.437,
+   "n_m": 551.308,
+   "dem_elev_m": -3620.663330078125,
+   "slope_3m_deg": 8.3,
+   "rover_check": {
+    "label": "agrees",
+    "rover_tilt": 9.918,
+    "dem_tilt": 11.093
+   },
+   "straight_line_from_previous_m": null,
+   "position_note": "NOTIONAL: chosen by the author's plan as a real PLACES rover stop near the north end of the loop; no habitat or lander exists here.",
+   "facts": [],
+   "photo": {
+    "file": "photos/NLB_807463416EDR_F1180198NCAM00279M_.jpg",
+    "imageid": "NLB_807463416EDR_F1180198NCAM00279M_",
+    "instrument": "NAV_LEFT_B",
+    "sol": 4618,
+    "date_taken": "2025-08-03T04:30:14.000Z",
+    "site": 118,
+    "drive": 198,
+    "credit": "NASA/JPL-Caltech",
+    "url": "https://mars.nasa.gov/msl-raw-images/proj/msl/redops/ods/surface/sol/04618/opgs/edr/ncam/NLB_807463416EDR_F1180198NCAM00279M_.JPG",
+    "rule": "earliest full-frame NAV_LEFT_B at the stop's site/drive on its sol",
+    "view": {
+     "az_deg": 33.8,
+     "el_deg": -9.4,
+     "compass": "NE",
+     "check": {
+      "heading_diff_deg": 0.0,
+      "camera_vs_mast_deg": 0.024,
+      "tol_deg": 0.5
+     },
+     "rule": "azimuth = PLACES heading + mast azimuth (raw-image record); elevation = mast elevation"
+    }
+   },
+   "walk_back_s": 0.0,
+   "tasks": []
+  },
+  {
+   "id": "bococo",
+   "name": "Bococo: where ridges meet",
+   "kind": "ridge",
+   "sol": 4625,
+   "site": "118",
+   "drive": "762",
+   "lat": -4.805859125,
+   "lon": 137.379758316,
+   "e_m": 97.627,
+   "n_m": 529.729,
+   "dem_elev_m": -3617.69384765625,
+   "slope_3m_deg": 10.4,
+   "rover_check": {
+    "label": "agrees",
+    "rover_tilt": 9.825,
+    "dem_tilt": 11.039
+   },
+   "straight_line_from_previous_m": 25.3,
+   "position_note": "rover position on sol 4625, when Bococo was imaged",
+   "facts": [
+    {
+     "text": "Rock at the intersection of several boxwork ridges, with bright millimetre-scale nodules that are likely calcium sulfate.",
+     "source": "https://science.nasa.gov/blog/curiosity-blog-sols-4627-4628-a-ridge-stop-in-the-boxworks/",
+     "quote": "the rock target \"Bococo\" at the intersection of several boxwork ridges ... bright millimeter-scale nodules likely to be calcium sulfate",
+     "source_title": "Curiosity Blog, Sols 4627-4628: A Ridge Stop in the Boxworks",
+     "published": "2025-08-14",
+     "byline": "Lucy Lim, NASA Goddard"
+    }
+   ],
+   "photo": {
+    "file": "photos/NLB_808083553EDR_F1180762NCAM00353M_.jpg",
+    "imageid": "NLB_808083553EDR_F1180762NCAM00353M_",
+    "instrument": "NAV_LEFT_B",
+    "sol": 4625,
+    "date_taken": "2025-08-10T08:45:56.000Z",
+    "site": 118,
+    "drive": 762,
+    "credit": "NASA/JPL-Caltech",
+    "url": "https://mars.nasa.gov/msl-raw-images/proj/msl/redops/ods/surface/sol/04625/opgs/edr/ncam/NLB_808083553EDR_F1180762NCAM00353M_.JPG",
+    "rule": "earliest full-frame NAV_LEFT_B at the stop's site/drive on its sol",
+    "view": {
+     "az_deg": 187.0,
+     "el_deg": -52.7,
+     "compass": "S",
+     "check": {
+      "heading_diff_deg": 0.0,
+      "camera_vs_mast_deg": 0.039,
+      "tol_deg": 0.5
+     },
+     "rule": "azimuth = PLACES heading + mast azimuth (raw-image record); elevation = mast elevation"
+    }
+   },
+   "walk_back_s": 78.0,
+   "tasks": [
+    {
+     "step": "question",
+     "text": "What are the bright nodules where several ridges meet?",
+     "refs": [
+      [
+       "bococo",
+       0
+      ]
+     ],
+     "inference": false
+    },
+    {
+     "step": "observe",
+     "text": "The intersection of the ridges and the bright millimetre-scale nodules (NASA: likely calcium sulfate).",
+     "refs": [
+      [
+       "bococo",
+       0
+      ]
+     ],
+     "inference": false
+    },
+    {
+     "step": "image",
+     "text": "Close-up images of the nodules where the ridges join.",
+     "refs": [
+      [
+       "bococo",
+       0
+      ]
+     ],
+     "inference": false
+    },
+    {
+     "step": "sample",
+     "text": "A nodule-bearing piece of the ridge rock.",
+     "refs": [
+      [
+       "bococo",
+       0
+      ]
+     ],
+     "inference": false,
+     "bags": [
+      "nodule-bearing ridge rock"
+     ]
+    },
+    {
+     "step": "compare",
+     "text": "The nodules on the Río Frío ridge wall (next station).",
+     "refs": [
+      [
+       "rio_frio",
+       0
+      ],
+      [
+       "rio_frio",
+       1
+      ]
+     ],
+     "inference": false
+    }
+   ]
+  },
+  {
+   "id": "rio_frio",
+   "name": "Río Frío: a ridge wall",
+   "kind": "wall",
+   "sol": 4634,
+   "site": "118",
+   "drive": "1608",
+   "lat": -4.806356167,
+   "lon": 137.379116744,
+   "e_m": 59.598,
+   "n_m": 500.267,
+   "dem_elev_m": -3609.985107421875,
+   "slope_3m_deg": 12.5,
+   "rover_check": {
+    "label": "disagrees",
+    "rover_tilt": 17.533,
+    "dem_tilt": 11.47
+   },
+   "straight_line_from_previous_m": 48.1,
+   "position_note": "rover position on sol 4634, when the wall was imaged; this stop has the largest rover tilt in the traverse (17.5 deg, PLACES)",
+   "facts": [
+    {
+     "text": "The wall of one of the ridges cutting through the boxwork. A nodule-filled rock (Minimini) and a vein (El Tapado) were picked here for chemical analysis.",
+     "source": "https://science.nasa.gov/blog/curiosity-blog-sols-4636-4637-up-against-a-wall/",
+     "quote": "the wall of one of the many ridges cutting through the boxwork terrain ... the nodule-filled target \"Minimini\" ... a vein at \"El Tapado.\"",
+     "source_title": "Curiosity Blog, Sols 4636-4637: Up Against a Wall",
+     "published": "2025-08-20",
+     "byline": "Michelle Minitti, Framework"
+    },
+    {
+     "text": "Nodules are found along ridge walls and in the hollows, not at the central fractures.",
+     "source": "https://www.jpl.nasa.gov/news/nasas-curiosity-rover-sees-martian-spiderwebs-up-close/",
+     "quote": "these nodules were not found near the central fractures, but along a ridge's walls and the hollows between them.",
+     "source_title": "NASA's Curiosity Rover Sees Martian 'Spiderwebs' Up Close",
+     "published": "2026-02-23",
+     "byline": ""
+    }
+   ],
+   "photo": {
+    "file": "photos/NLB_808882742EDR_F1181608NCAM00353M_.jpg",
+    "imageid": "NLB_808882742EDR_F1181608NCAM00353M_",
+    "instrument": "NAV_LEFT_B",
+    "sol": 4634,
+    "date_taken": "2025-08-19T14:45:53.000Z",
+    "site": 118,
+    "drive": 1608,
+    "credit": "NASA/JPL-Caltech",
+    "url": "https://mars.nasa.gov/msl-raw-images/proj/msl/redops/ods/surface/sol/04634/opgs/edr/ncam/NLB_808882742EDR_F1181608NCAM00353M_.JPG",
+    "rule": "earliest full-frame NAV_LEFT_B at the stop's site/drive on its sol",
+    "view": {
+     "az_deg": 237.7,
+     "el_deg": -52.7,
+     "compass": "WSW",
+     "check": {
+      "heading_diff_deg": 0.0,
+      "camera_vs_mast_deg": 0.039,
+      "tol_deg": 0.5
+     },
+     "rule": "azimuth = PLACES heading + mast azimuth (raw-image record); elevation = mast elevation"
+    }
+   },
+   "walk_back_s": 167.0,
+   "tasks": [
+    {
+     "step": "question",
+     "text": "Do the nodules and veins on this ridge wall match those seen elsewhere in the boxwork?",
+     "refs": [
+      [
+       "rio_frio",
+       0
+      ],
+      [
+       "rio_frio",
+       1
+      ]
+     ],
+     "inference": false
+    },
+    {
+     "step": "observe",
+     "text": "Where the nodules sit: along the wall and in the hollows, not at the central fracture.",
+     "refs": [
+      [
+       "rio_frio",
+       1
+      ]
+     ],
+     "inference": false
+    },
+    {
+     "step": "sample",
+     "text": "A nodule-filled rock and a vein: the same two kinds Curiosity chose here (Minimini, El Tapado).",
+     "refs": [
+      [
+       "rio_frio",
+       0
+      ]
+     ],
+     "inference": false,
+     "bags": [
+      "nodule-filled rock",
+      "vein"
+     ]
+    },
+    {
+     "step": "compare",
+     "text": "The Bococo nodules where the ridges meet.",
+     "refs": [
+      [
+       "bococo",
+       0
+      ]
+     ],
+     "inference": false
+    }
+   ]
+  },
+  {
+   "id": "transition",
+   "name": "Ridge top to hollow edge",
+   "kind": "contact",
+   "sol": 4650,
+   "site": "118",
+   "drive": "2304",
+   "lat": -4.806892804,
+   "lon": 137.379841825,
+   "e_m": 102.577,
+   "n_m": 468.458,
+   "dem_elev_m": -3610.488525390625,
+   "slope_3m_deg": 9.4,
+   "rover_check": {
+    "label": "disagrees",
+    "rover_tilt": 11.928,
+    "dem_tilt": 7.501
+   },
+   "straight_line_from_previous_m": 53.5,
+   "position_note": "rover position on sol 4650, when the transition was imaged; NASA gives no target name",
+   "facts": [
+    {
+     "text": "Smooth bedrock on a ridge top changes to nodular bedrock at the edge of a shallow hollow.",
+     "source": "https://science.nasa.gov/blog/curiosity-blog-sols-4649-4654-ridges-hollows-and-nodules-oh-my",
+     "quote": "transition from smoother bedrock atop a boxwork ridge to more nodular bedrock associated with the edge of a shallow hollow",
+     "source_title": "Curiosity Blog, Sols 4649-4654: Ridges, Hollows and Nodules, Oh My",
+     "published": "2025-09-12",
+     "byline": "Lucy Thompson, University of New Brunswick"
+    }
+   ],
+   "photo": {
+    "file": "photos/NLB_810298182EDR_F1182304NCAM00353M_.jpg",
+    "imageid": "NLB_810298182EDR_F1182304NCAM00353M_",
+    "instrument": "NAV_LEFT_B",
+    "sol": 4650,
+    "date_taken": "2025-09-04T23:56:46.000Z",
+    "site": 118,
+    "drive": 2304,
+    "credit": "NASA/JPL-Caltech",
+    "url": "https://mars.nasa.gov/msl-raw-images/proj/msl/redops/ods/surface/sol/04650/opgs/edr/ncam/NLB_810298182EDR_F1182304NCAM00353M_.JPG",
+    "rule": "earliest full-frame NAV_LEFT_B at the stop's site/drive on its sol",
+    "view": {
+     "az_deg": 53.9,
+     "el_deg": -52.7,
+     "compass": "NE",
+     "check": {
+      "heading_diff_deg": 0.0,
+      "camera_vs_mast_deg": 0.039,
+      "tol_deg": 0.5
+     },
+     "rule": "azimuth = PLACES heading + mast azimuth (raw-image record); elevation = mast elevation"
+    }
+   },
+   "walk_back_s": 225.0,
+   "tasks": [
+    {
+     "step": "question",
+     "text": "What changes between the smooth ridge top and the nodular edge of the hollow?",
+     "refs": [
+      [
+       "transition",
+       0
+      ]
+     ],
+     "inference": false
+    },
+    {
+     "step": "observe",
+     "text": "Trace the contact from smooth to nodular bedrock across the edge of the hollow.",
+     "refs": [
+      [
+       "transition",
+       0
+      ]
+     ],
+     "inference": false
+    },
+    {
+     "step": "image",
+     "text": "Images across the contact, ridge side and hollow side in one frame.",
+     "refs": [
+      [
+       "transition",
+       0
+      ]
+     ],
+     "inference": false
+    },
+    {
+     "step": "compare",
+     "text": "The two drill sites ahead: hollow (Valle de la Luna) and ridge top (Nevado Sajama).",
+     "refs": [
+      [
+       "valle_de_la_luna",
+       0
+      ],
+      [
+       "nevado_sajama",
+       0
+      ]
+     ],
+     "inference": false
+    }
+   ]
+  },
+  {
+   "id": "valle_de_la_luna",
+   "name": "Valle de la Luna: hollow drill site",
+   "kind": "hollow",
+   "sol": 4687,
+   "site": "119",
+   "drive": "1722",
+   "lat": -4.807839161,
+   "lon": 137.381035353,
+   "e_m": 173.323,
+   "n_m": 412.363,
+   "dem_elev_m": -3610.731689453125,
+   "slope_3m_deg": 22.5,
+   "rover_check": {
+    "label": "disagrees",
+    "rover_tilt": 6.807,
+    "dem_tilt": 22.797
+   },
+   "straight_line_from_previous_m": 90.3,
+   "position_note": "INFERRED: last PLACES localized position before the drilling (sol 4687); PLACES has no other localized stop until sol 4709, and the computed distance to the ridge drill position is about 10 m, matching NASA's 'about 10 meters'",
+   "facts": [
+    {
+     "text": "Bedrock drill target in a large hollow called Monte Grande.",
+     "source": "https://science.nasa.gov/blog/curiosity-blog-sols-4709-4715-drilling-high-and-low-in-the-boxwork-unit",
+     "quote": "we successfully drilled the bedrock target \"Valle de la Luna\" in a large hollow called \"Monte Grande.\"",
+     "source_title": "Curiosity Blog, Sols 4709-4715: Drilling High and Low in the Boxwork Unit",
+     "published": "2025-11-18",
+     "byline": "Catherine O'Connell-Cooper, University of New Brunswick"
+    },
+    {
+     "text": "Curiosity's 44th drill hole; the blog for sols 4695 to 4701 reports it as done. The exact drill sol is not stated.",
+     "source": "https://science.nasa.gov/solar-system/curiosity-blog-sols-4695-4701-searching-for-answers-at-monte-grande",
+     "quote": "Curiosity has successfully drilled its 44th hole on Mars",
+     "source_title": "Curiosity Blog, Sols 4695-4701: Searching for Answers at Monte Grande",
+     "published": "2025-11-13",
+     "byline": "William Farrand, Space Science Institute"
+    },
+    {
+     "text": "Hollow floors are often sand or small pebbles, with little exposed bedrock.",
+     "source": "https://science.nasa.gov/blog/curiosity-blog-sols-4689-4694-drill-in-the-boxwork-unit-is-go/",
+     "quote": "is often covered in sand or small pebbles, with just sparse bedrock peeking through",
+     "source_title": "Curiosity Blog, Sols 4689-4694: Drill in the Boxwork Unit is GO!",
+     "published": "2025-11-13",
+     "byline": "Catherine O'Connell-Cooper, University of New Brunswick"
+    },
+    {
+     "text": "Campaign result: X-ray analyses found carbonate minerals in the hollow sample. NASA does not name the sample, so linking it to this drill hole is our inference.",
+     "source": "https://www.jpl.nasa.gov/news/nasas-curiosity-rover-sees-martian-spiderwebs-up-close/",
+     "quote": "The X-ray analyses found clay minerals in the ridge and carbonate minerals in the hollow",
+     "inference": true,
+     "source_title": "NASA's Curiosity Rover Sees Martian 'Spiderwebs' Up Close",
+     "published": "2026-02-23",
+     "byline": ""
+    }
+   ],
+   "photo": {
+    "file": "photos/NLB_813578730EDR_F1191722NCAM00258M_.jpg",
+    "imageid": "NLB_813578730EDR_F1191722NCAM00258M_",
+    "instrument": "NAV_LEFT_B",
+    "sol": 4687,
+    "date_taken": "2025-10-12T23:13:05.000Z",
+    "site": 119,
+    "drive": 1722,
+    "credit": "NASA/JPL-Caltech",
+    "url": "https://mars.nasa.gov/msl-raw-images/proj/msl/redops/ods/surface/sol/04687/opgs/edr/ncam/NLB_813578730EDR_F1191722NCAM00258M_.JPG",
+    "rule": "earliest full-frame NAV_LEFT_B at the stop's site/drive on its sol",
+    "view": {
+     "az_deg": 117.8,
+     "el_deg": -18.3,
+     "compass": "ESE",
+     "check": {
+      "heading_diff_deg": 0.0,
+      "camera_vs_mast_deg": 0.025,
+      "tol_deg": 0.5
+     },
+     "rule": "azimuth = PLACES heading + mast azimuth (raw-image record); elevation = mast elevation"
+    }
+   },
+   "walk_back_s": 432.0,
+   "tasks": [
+    {
+     "step": "question",
+     "text": "How does the hollow's bedrock differ from the ridge top 10 m away? NASA reports carbonate in the hollow sample and clay in the ridge sample.",
+     "refs": [
+      [
+       "valle_de_la_luna",
+       3
+      ],
+      [
+       "nevado_sajama",
+       4
+      ],
+      [
+       "nevado_sajama",
+       0
+      ]
+     ],
+     "inference": true
+    },
+    {
+     "step": "observe",
+     "text": "The hollow floor is mostly sand or small pebbles: find where bedrock is exposed.",
+     "refs": [
+      [
+       "valle_de_la_luna",
+       2
+      ]
+     ],
+     "inference": false
+    },
+    {
+     "step": "sample",
+     "text": "Bedrock beside Curiosity's 44th drill hole.",
+     "refs": [
+      [
+       "valle_de_la_luna",
+       0
+      ],
+      [
+       "valle_de_la_luna",
+       1
+      ]
+     ],
+     "inference": false,
+     "bags": [
+      "hollow bedrock"
+     ]
+    },
+    {
+     "step": "compare",
+     "text": "The Nevado Sajama ridge-top drill site, about 10 m away and about 2 m higher.",
+     "refs": [
+      [
+       "nevado_sajama",
+       0
+      ]
+     ],
+     "inference": false
+    }
+   ],
+   "pair": {
+    "id": "drill_pair",
+    "refs": [
+     [
+      "nevado_sajama",
+      0
+     ]
+    ],
+    "note": "Curiosity's two drill sites: ridge top and hollow about 10 m apart (NASA)"
+   }
+  },
+  {
+   "id": "nevado_sajama",
+   "name": "Nevado Sajama: ridge-top drill site",
+   "kind": "ridge",
+   "sol": 4711,
+   "site": "120",
+   "drive": "82",
+   "lat": -4.808007546,
+   "lon": 137.381004126,
+   "e_m": 171.472,
+   "n_m": 402.382,
+   "dem_elev_m": -3608.017578125,
+   "slope_3m_deg": 20.7,
+   "rover_check": {
+    "label": "disagrees",
+    "rover_tilt": 11.088,
+    "dem_tilt": 20.018
+   },
+   "straight_line_from_previous_m": 10.2,
+   "position_note": "rover position from sol 4711; the drilling completed on sol 4718 (Navcam products for sol 4718 are referenced to site 120, drive 82)",
+   "facts": [
+    {
+     "text": "The ridge-top drill target, about 10 m from the hollow drill site and about 2 m higher.",
+     "source": "https://science.nasa.gov/blog/curiosity-blog-sols-4709-4715-drilling-high-and-low-in-the-boxwork-unit",
+     "quote": "about 10 meters away (about 33 feet) ... Although there is a mere 2-meter difference in elevation (about 6½ feet) between the hollow floor and the ridge top",
+     "source_title": "Curiosity Blog, Sols 4709-4715: Drilling High and Low in the Boxwork Unit",
+     "published": "2025-11-18",
+     "byline": "Catherine O'Connell-Cooper, University of New Brunswick"
+    },
+    {
+     "text": "Drilling completed on sol 4718.",
+     "source": "https://science.nasa.gov/solar-system/curiosity-blog-sols-4716-4722-drilling-success-at-nevado-sajama",
+     "quote": "The drill activity itself completed on Sol 4718.",
+     "source_title": "Curiosity Blog, Sols 4716-4722: Drilling Success at Nevado Sajama",
+     "published": "2025-11-18",
+     "byline": "Michelle Minitti, Framework"
+    },
+    {
+     "text": "Close-up images (MAHLI) showed fine veins in both bedrock targets brushed clean in the drill workspace.",
+     "source": "https://science.nasa.gov/solar-system/curiosity-blog-sols-4716-4722-drilling-success-at-nevado-sajama",
+     "quote": "MAHLI imaging revealed the presence of fine veins in both targets",
+     "source_title": "Curiosity Blog, Sols 4716-4722: Drilling Success at Nevado Sajama",
+     "published": "2025-11-18",
+     "byline": "Michelle Minitti, Framework"
+    },
+    {
+     "text": "Its chemistry matches the many other ridge-top targets of the campaign.",
+     "source": "https://science.nasa.gov/solar-system/curiosity-blog-sols-4716-4722-drilling-success-at-nevado-sajama",
+     "quote": "demonstrated that the chemistry of the workspace was in family with the many ridge-top targets analyzed during the boxwork unit campaign.",
+     "source_title": "Curiosity Blog, Sols 4716-4722: Drilling Success at Nevado Sajama",
+     "published": "2025-11-18",
+     "byline": "Michelle Minitti, Framework"
+    },
+    {
+     "text": "Campaign result: X-ray analyses found clay minerals in the ridge sample. NASA does not name the sample, so linking it to this drill hole is our inference.",
+     "source": "https://www.jpl.nasa.gov/news/nasas-curiosity-rover-sees-martian-spiderwebs-up-close/",
+     "quote": "The X-ray analyses found clay minerals in the ridge and carbonate minerals in the hollow",
+     "inference": true,
+     "source_title": "NASA's Curiosity Rover Sees Martian 'Spiderwebs' Up Close",
+     "published": "2026-02-23",
+     "byline": ""
+    }
+   ],
+   "photo": {
+    "file": "photos/NLB_815714538EDR_F1200082NCAM00264M_.jpg",
+    "imageid": "NLB_815714538EDR_F1200082NCAM00264M_",
+    "instrument": "NAV_LEFT_B",
+    "sol": 4711,
+    "date_taken": "2025-11-06T16:30:14.000Z",
+    "site": 120,
+    "drive": 82,
+    "credit": "NASA/JPL-Caltech",
+    "url": "https://mars.nasa.gov/msl-raw-images/proj/msl/redops/ods/surface/sol/04711/opgs/edr/ncam/NLB_815714538EDR_F1200082NCAM00264M_.JPG",
+    "rule": "earliest full-frame NAV_LEFT_B at the stop's site/drive on its sol",
+    "view": {
+     "az_deg": 44.6,
+     "el_deg": -6.1,
+     "compass": "NE",
+     "check": {
+      "heading_diff_deg": 0.0,
+      "camera_vs_mast_deg": 0.023,
+      "tol_deg": 0.5
+     },
+     "rule": "azimuth = PLACES heading + mast azimuth (raw-image record); elevation = mast elevation"
+    }
+   },
+   "walk_back_s": 434.0,
+   "tasks": [
+    {
+     "step": "question",
+     "text": "Is this ridge top like the others in the campaign, and how does it differ from the hollow below?",
+     "refs": [
+      [
+       "nevado_sajama",
+       3
+      ],
+      [
+       "nevado_sajama",
+       4
+      ]
+     ],
+     "inference": true
+    },
+    {
+     "step": "observe",
+     "text": "The fine veins in the bedrock seen in the rover's close-ups of the drill workspace.",
+     "refs": [
+      [
+       "nevado_sajama",
+       2
+      ]
+     ],
+     "inference": false
+    },
+    {
+     "step": "image",
+     "text": "Close-up images of the veins, as Curiosity's MAHLI took here.",
+     "refs": [
+      [
+       "nevado_sajama",
+       2
+      ]
+     ],
+     "inference": false
+    },
+    {
+     "step": "sample",
+     "text": "Ridge-top bedrock beside the drill hole completed on sol 4718.",
+     "refs": [
+      [
+       "nevado_sajama",
+       1
+      ]
+     ],
+     "inference": false,
+     "bags": [
+      "ridge-top bedrock"
+     ]
+    },
+    {
+     "step": "compare",
+     "text": "The hollow sample at Valle de la Luna, 10 m away and 2 m lower.",
+     "refs": [
+      [
+       "valle_de_la_luna",
+       3
+      ],
+      [
+       "nevado_sajama",
+       0
+      ]
+     ],
+     "inference": true
+    }
+   ],
+   "pair": {
+    "id": "drill_pair",
+    "refs": [
+     [
+      "nevado_sajama",
+      0
+     ]
+    ],
+    "note": "Curiosity's two drill sites: ridge top and hollow about 10 m apart (NASA)"
+   }
+  }
+ ],
+ "context_facts": [
+  {
+   "text": "Ridges stand roughly 1 to 2 m tall with sandy hollows between them.",
+   "source": "https://www.jpl.nasa.gov/news/nasas-curiosity-rover-sees-martian-spiderwebs-up-close/",
+   "quote": "low ridges standing roughly 3 to 6 feet (1 to 2 meters) tall with sandy hollows in between",
+   "source_title": "NASA's Curiosity Rover Sees Martian 'Spiderwebs' Up Close",
+   "published": "2026-02-23",
+   "byline": ""
+  },
+  {
+   "text": "Proposed origin: groundwater once flowed through large fractures in the bedrock and left minerals behind.",
+   "source": "https://www.jpl.nasa.gov/news/nasas-curiosity-rover-sees-martian-spiderwebs-up-close/",
+   "quote": "groundwater once flowed through large fractures in the bedrock, leaving behind minerals",
+   "source_title": "NASA's Curiosity Rover Sees Martian 'Spiderwebs' Up Close",
+   "published": "2026-02-23",
+   "byline": ""
+  }
+ ],
+ "tasks_note": "Station plans: VISOR's suggestions built from the cited facts (refs = [stop id, fact index]); not a NASA plan. inference = true where a task links facts in a way NASA does not state.",
+ "bags_note": "Bag labels are VISOR's short names for the sample tasks (one bag per sampled material); not a NASA sample plan."
+}

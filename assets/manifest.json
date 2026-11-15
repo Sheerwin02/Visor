@@ -1,0 +1,461 @@
+{
+ "bundle": "VISOR asset bundle",
+ "version": 1,
+ "built_utc": "2026-11-12T08:26:01Z",
+ "grid": {
+  "projection": "Equirectangular, Mars 2000 sphere radius 3396190 m, central meridian 0, standard parallel 0 (same as the DEM)",
+  "x_west_m": 8143045.992786024,
+  "y_north_m": -284317.575189438,
+  "cell_m": 1.0,
+  "width": 553,
+  "height": 1078,
+  "z_offset_m": -3668.0,
+  "local_axes": "e_m east of west edge, n_m north of south edge; heightmap row 0 is the north edge",
+  "lat_range": [
+   -4.814796,
+   -4.796609
+  ],
+  "lon_range": [
+   137.378111,
+   137.387441
+  ]
+ },
+ "files": {
+  "heightmap.bin": {
+   "kind": "float32 LE row-major, row 0 north",
+   "width": 553,
+   "height": 1078,
+   "cell_m": 1.0,
+   "units": "m above z_offset_m",
+   "bytes": 2384536,
+   "sha256": "0ebf45618fabd0fa51ff3489c432c8cae0aedbe76f16b628ff01225f8aa8a961"
+  },
+  "slope_3m.bin": {
+   "kind": "float32 LE row-major, row 0 north",
+   "width": 553,
+   "height": 1078,
+   "units": "deg",
+   "method": "3 x 3 m box filter, then gradient",
+   "bytes": 2384536,
+   "sha256": "a79f522f87d131199a0318130de005da2a7135b7c8a56744bdfea70cdea966dd"
+  },
+  "slope_bands_3m.png": {
+   "kind": "8-bit index PNG",
+   "width": 553,
+   "height": 1078,
+   "values": {
+    "0": "<15 deg",
+    "1": "15-25 deg",
+    "2": ">=25 deg"
+   },
+   "bytes": 55330,
+   "sha256": "df90de115fa3d5e915b57227dbadefc07285ad4ed75001a702c47ea912c41e8c"
+  },
+  "ortho_0p5m.jpg": {
+   "kind": "JPEG RGB",
+   "width": 1106,
+   "height": 2156,
+   "pixel_m": 0.5,
+   "extent": "exactly the heightmap grid",
+   "bytes": 906821,
+   "sha256": "6460057933a791f143e538a911954d9ea987faf8730afad01ed9f76fa20d7fbc"
+  },
+  "ortho_0p25m_n.jpg": {
+   "kind": "JPEG RGB",
+   "width": 2212,
+   "height": 2156,
+   "pixel_m": 0.25,
+   "extent": "north half: grid rows 0..539",
+   "bytes": 1602062,
+   "sha256": "a4f46888a8a3777a34967f27ec10a1a0c7b359f23cce3f6d23ccaf2cb37b12f7"
+  },
+  "ortho_0p25m_s.jpg": {
+   "kind": "JPEG RGB",
+   "width": 2212,
+   "height": 2156,
+   "pixel_m": 0.25,
+   "extent": "south half: grid rows 539..1078",
+   "bytes": 1698533,
+   "sha256": "17d5fafb8da2a80b162f311bdcff50db91db837717b5124114aad7a1539fd37e"
+  },
+  "rover_path.json": {
+   "kind": "JSON",
+   "count": 85,
+   "bytes": 19202,
+   "sha256": "bc2ceb6a3eec196a7523cbc60cba951d9d9ebe238fbea22b235100ab92408b34"
+  },
+  "rover_check.json": {
+   "kind": "JSON",
+   "count": 85,
+   "bytes": 28817,
+   "sha256": "7dc63a6ae4b84432dbee761cf7e83186afb0cc1e7d6513306e89fa401ef1101c"
+  },
+  "walk_back_s.bin": {
+   "kind": "uint16 LE row-major, row 0 north",
+   "width": 553,
+   "height": 1078,
+   "units": "s",
+   "no_way_back": 65535,
+   "method": "Dijkstra from the exit stop on the route's cost graph (same speed, bias, slope limit and rover-verified rule)",
+   "reachable_cells": 535312,
+   "bytes": 1192268,
+   "sha256": "f6f41bcbcf49ae26e30807368df06f698c5870745192d858a48a79653dba9674"
+  },
+  "route.json": {
+   "kind": "JSON",
+   "legs": 6,
+   "all_legs_possible": true,
+   "bytes": 14617,
+   "sha256": "2b5455983c89a4a9269a0d3cb09927248e4879e043581833cff68668e5109ccc"
+  },
+  "stops.json": {
+   "kind": "JSON",
+   "count": 6,
+   "bytes": 24296,
+   "sha256": "156fe3a785fe7666da711ba23fe737945ea9812ce38050887dc260bbe12de462"
+  },
+  "photos/NLB_807463416EDR_F1180198NCAM00279M_.jpg": {
+   "kind": "JPEG (Curiosity raw image)",
+   "stop": "exit",
+   "credit": "NASA/JPL-Caltech",
+   "source": "https://mars.nasa.gov/msl-raw-images/proj/msl/redops/ods/surface/sol/04618/opgs/edr/ncam/NLB_807463416EDR_F1180198NCAM00279M_.JPG",
+   "bytes": 608830,
+   "sha256": "be203625dd627a54ddf986c785da02c54807769165984890832daf1fa1497482"
+  },
+  "photos/NLB_808083553EDR_F1180762NCAM00353M_.jpg": {
+   "kind": "JPEG (Curiosity raw image)",
+   "stop": "bococo",
+   "credit": "NASA/JPL-Caltech",
+   "source": "https://mars.nasa.gov/msl-raw-images/proj/msl/redops/ods/surface/sol/04625/opgs/edr/ncam/NLB_808083553EDR_F1180762NCAM00353M_.JPG",
+   "bytes": 560341,
+   "sha256": "43d815e614e665b1a9e4cc3694a1df1810d4e34d5b61a629f4a5783cbbccaa66"
+  },
+  "photos/NLB_808882742EDR_F1181608NCAM00353M_.jpg": {
+   "kind": "JPEG (Curiosity raw image)",
+   "stop": "rio_frio",
+   "credit": "NASA/JPL-Caltech",
+   "source": "https://mars.nasa.gov/msl-raw-images/proj/msl/redops/ods/surface/sol/04634/opgs/edr/ncam/NLB_808882742EDR_F1181608NCAM00353M_.JPG",
+   "bytes": 470984,
+   "sha256": "abb3ecd5d206ca9b88ae50da8fde75ae3b72dec8bbbe7da18e2d85eee9876faa"
+  },
+  "photos/NLB_810298182EDR_F1182304NCAM00353M_.jpg": {
+   "kind": "JPEG (Curiosity raw image)",
+   "stop": "transition",
+   "credit": "NASA/JPL-Caltech",
+   "source": "https://mars.nasa.gov/msl-raw-images/proj/msl/redops/ods/surface/sol/04650/opgs/edr/ncam/NLB_810298182EDR_F1182304NCAM00353M_.JPG",
+   "bytes": 449256,
+   "sha256": "dc27b4ed071f946c84f730e1559fd92ea9bdca8ccd5f3650464066c084b13486"
+  },
+  "photos/NLB_813578730EDR_F1191722NCAM00258M_.jpg": {
+   "kind": "JPEG (Curiosity raw image)",
+   "stop": "valle_de_la_luna",
+   "credit": "NASA/JPL-Caltech",
+   "source": "https://mars.nasa.gov/msl-raw-images/proj/msl/redops/ods/surface/sol/04687/opgs/edr/ncam/NLB_813578730EDR_F1191722NCAM00258M_.JPG",
+   "bytes": 553123,
+   "sha256": "dc2ce24bdd719ed87b16c0fa535d9ebd5d1fb7ebd9b00c927c7881ef595b1426"
+  },
+  "photos/NLB_815714538EDR_F1200082NCAM00264M_.jpg": {
+   "kind": "JPEG (Curiosity raw image)",
+   "stop": "nevado_sajama",
+   "credit": "NASA/JPL-Caltech",
+   "source": "https://mars.nasa.gov/msl-raw-images/proj/msl/redops/ods/surface/sol/04711/opgs/edr/ncam/NLB_815714538EDR_F1200082NCAM00264M_.JPG",
+   "bytes": 402236,
+   "sha256": "351b494f8a3cb7fea365ad2c0883b55f586f3130530c5b8891d7732bc989e881"
+  },
+  "navcam_4718_points.bin": {
+   "kind": "float32 LE x4 per point: e_m, n_m, height above z_offset_m, slope_deg (tools/navcam_check.py)",
+   "credit": "NASA/JPL-Caltech; Maki, J. (2024), MSL Navcam Processed Data Bundle, NASA PDS, doi:10.17189/2pw6-a555",
+   "stop": "nevado_sajama",
+   "bytes": 800000,
+   "sha256": "94f02931b56b81787889c6cf307469dde0677a425bdce89fb2f20acc29b7406c"
+  },
+  "navcam_check.json": {
+   "kind": "JSON (tools/navcam_check.py)",
+   "note": "height check and slope comparison per the doc's Navcam rule",
+   "bytes": 807,
+   "sha256": "610676a5116ceaa8c4da59c38c3f76e3db926faaa928c45ee2b207a8305df521"
+  },
+  "route_ensemble.json": {
+   "kind": "JSON (crates/route-core/examples/ensemble.rs)",
+   "note": "route uncertainty ensemble per the doc's Route uncertainty rule",
+   "bytes": 22617,
+   "sha256": "bfdcadef49b9121e48ca818dcc3a2a391949b09f49004f0d4d53667d44524f19"
+  },
+  "route_usage.bin": {
+   "kind": "uint8 row-major, row 0 north: round(255 x share of ensemble runs whose route crosses the cell)",
+   "note": "the ensemble the app shows; run count and correlation length in route_ensemble.json",
+   "bytes": 596134,
+   "sha256": "fda7f803ccf7e1e36f84501d82fe69c41b386d1853afab8f0fe42e92f32547af"
+  },
+  "conditions.json": {
+   "kind": "JSON (tools/conditions.py)",
+   "note": "daily REMS weather for the study sols from the NASA/CAB outreach feed; disclaimer and Ls check inside",
+   "bytes": 100509,
+   "sha256": "b16565561c6f363088cc846c05721106b52ea4002ad6a092792e97217502c566"
+  },
+  "radiation.json": {
+   "kind": "JSON (tools/rad.py)",
+   "note": "RAD dose rate per stop sol (PDS RDR) and DONKI events naming Mars, per the doc's RAD rule; context only",
+   "bytes": 4876,
+   "sha256": "3bddb0f9d5c83aaac5db3edc6dce6f44d1b3d7739726457acd7d8076115b57e7"
+  },
+  "readiness.bin": {
+   "kind": "uint8 row-major, row 0 north, one byte per grid cell (tools/provenance.py run2)",
+   "note": "data readiness part B v2: 0 source unknown, 1 agrees, 2 partial, 3 disagrees (3 m slope vs the UA HiRISE DTM), 4 rover-checked; rule in the doc, approved",
+   "credit": "NASA/JPL/University of Arizona (HiRISE DTM DTEEC_009149_1750_009294_1750_U01)",
+   "bytes": 596134,
+   "sha256": "6ba17c16167dedaf6979c40e4e1cc691566ec232609daba886cee034d76662e1"
+  },
+  "readiness.json": {
+   "kind": "JSON (tools/provenance.py run2)",
+   "note": "verdict, numbers and legend of readiness.bin",
+   "bytes": 1324,
+   "sha256": "ded6cb68f23c1c47f3de3c936a44f99497708650690f914e830e12d608a3cd6f"
+  },
+  "ridges.json": {
+   "kind": "JSON (tools/ridges.py run)",
+   "note": "ridge tracing result summary for the readiness table; no map layer",
+   "bytes": 534,
+   "sha256": "e38fa907c3e9cf0cdc72e4c1ecc8227408ebf6991472aa930779cd410f85689f"
+  },
+  "eva_ops.json": {
+   "kind": "JSON (copied from tools/sources/eva_ops.json)",
+   "note": "EVA length, egress/ingress, emergency hour, 60 min rescue rule, roles; every value quoted with page and URL (NASA ConOps, Moon)",
+   "bytes": 3159,
+   "sha256": "b6d37987a73d018408c3f30fcc15e1ca5f364ed100b61f6c515a9cbc3359fc98"
+  },
+  "astronaut.bin": {
+   "kind": "LE format 2: one skinned mesh, positions f32x3, normals f32x3, colours u8x4 sRGB, joints u16x4, weights f32x4, indices u32 (tools/astronaut.py build)",
+   "credit": "NASA 3D Resources: Astronaut (Astronaut.glb); no NASA endorsement implied",
+   "source": "https://github.com/nasa/NASA-3D-Resources/tree/master/3D%20Models/Astronaut",
+   "bytes": 283428,
+   "sha256": "381bbe903cbdf8127a30a496278d1e2ea536d726fe62d5e22141fec2b7d5e6fc"
+  },
+  "astronaut.json": {
+   "kind": "JSON (tools/astronaut.py build)",
+   "note": "offsets, joint pivots, scale (ASSUMPTION 1.85 m, display only), credit",
+   "bytes": 1689,
+   "sha256": "e7e801acfb01a90f97f733a749dffdf35068005e1e614f521be2ae6ac1d404c6"
+  },
+  "trek_layers.json": {
+   "kind": "JSON (tools/trek.py build)",
+   "note": "NASA Mars Trek layers: resolution, coverage and alignment over the patch; view only",
+   "bytes": 4670,
+   "sha256": "6e333088c9f148205417c69cade81a1fdc10bf9d81908c8465aecfefa3230bac"
+  },
+  "trek_curiosity_hirise_mosaic.jpg": {
+   "kind": "JPEG RGB (tools/trek.py, composited from Mars Trek tiles)",
+   "credit": "NASA Mars Trek; MRO HiRISE, Curiosity Roving Site Mosaic",
+   "width": 1106,
+   "height": 2156,
+   "bytes": 367642,
+   "sha256": "8238661767df11c526951188ede6492402976b9b1da682948e45d23cbd67385d"
+  },
+  "trek_curiosity_ctx_mosaic.jpg": {
+   "kind": "JPEG RGB (tools/trek.py, composited from Mars Trek tiles)",
+   "credit": "NASA Mars Trek; MRO CTX, Curiosity Roving Site Mosaic",
+   "width": 553,
+   "height": 1078,
+   "bytes": 21537,
+   "sha256": "1fcb7b7d32368c9cbc1bde8bc2a389a4139559fd3434c54a1456e29e527f93ee"
+  },
+  "trek_THEMIS_NightIR_ControlledMosaics_100m_v2_oct2018.jpg": {
+   "kind": "JPEG RGB (tools/trek.py, composited from Mars Trek tiles)",
+   "credit": "NASA Mars Trek; MO THEMIS-IR Night, Global Mosaic",
+   "width": 553,
+   "height": 1078,
+   "bytes": 15202,
+   "sha256": "b3e3a570010c74cc43f4dcb0f6e92b4973dc35a0614a2422f22415721eb44346"
+  },
+  "trek_THEMIS_DayIR_ControlledMosaics_100m_v2_oct2018.jpg": {
+   "kind": "JPEG RGB (tools/trek.py, composited from Mars Trek tiles)",
+   "credit": "NASA Mars Trek; MO THEMIS-IR Day, Global Mosaic",
+   "width": 553,
+   "height": 1078,
+   "bytes": 19255,
+   "sha256": "dce7cbc500a99a0b2518fc3f72beebf0f34d5e3c303791c52eebe577c8d093a9"
+  },
+  "overview.json": {
+   "kind": "JSON (tools/overview.py build)",
+   "note": "Mars view: NASA Mars Trek landing-site bookmarks, Curiosity's whole PLACES traverse, the study patch, streamed basemap services",
+   "credit": "NASA Mars Trek; NASA/JPL-Caltech MSL PLACES",
+   "bytes": 89069,
+   "sha256": "184e8a35eaa769c85e371efe5969679ade671857da425c6f9b09cd8df7bf6e13"
+  },
+  "missions.json": {
+   "kind": "JSON (copied from tools/sources/missions.json)",
+   "note": "which NASA mission's data is used where in VISOR",
+   "bytes": 3154,
+   "sha256": "408a78746504379337abf9beeae434d3f6d3d231a7d0bbdb689ec6a6efd14057"
+  },
+  "curiosity.bin": {
+   "kind": "LE: positions f32x3, normals f32x3, colours u8x4 sRGB, indices u32 (tools/curiosity.py build)",
+   "credit": "NASA/JPL-Caltech: NASA Science 3D resources, Curiosity Rover 3D Model; no NASA endorsement implied",
+   "source": "https://science.nasa.gov/resource/curiosity-rover-3d-model/",
+   "bytes": 2394108,
+   "sha256": "fff2e389748c694127f2113af976015f0badd51f0f90ec6c15c7e1e34e541af1"
+  },
+  "curiosity.json": {
+   "kind": "JSON (tools/curiosity.py build)",
+   "note": "offsets, frame (faces +Z, Y up, metres), extent, credit",
+   "bytes": 1034,
+   "sha256": "3f52b1681a12617b04c19e8dfbd2211548e2a233bbd24670886ba7d1e65614e0"
+  },
+  "sun_check.json": {
+   "kind": "JSON (tools/trek_sun.py run)",
+   "note": "VISOR's sun model (Mars24) vs NASA Mars Trek's SPICE sun-angle service on the six stop sols; rule written before the run",
+   "credit": "NASA Mars Trek sun-angle service",
+   "bytes": 832,
+   "sha256": "1964bc6ef75b6587d1633c0a96dde1578e1d3aee799f735236243f311c671504"
+  },
+  "chemistry.json": {
+   "kind": "JSON (tools/chem.py build)",
+   "note": "Curiosity ChemCam MOC + APXS oxide results for the study sols, placed at the rover's PLACES position (site, drive)",
+   "credit": "ChemCam: NASA/JPL-Caltech/LANL/CNES; APXS: NASA/JPL-Caltech/University of Guelph; PDS Geosciences Node",
+   "bytes": 117714,
+   "sha256": "fabb3b8df9ed82975382c925e1a2e573f0963f499a1e420f6718fdff39f70c9d"
+  },
+  "panos.json": {
+   "kind": "JSON (tools/navcam_pano.py build)",
+   "note": "Navcam 360-degree mosaic per stop: product, projection, stretch",
+   "bytes": 6298,
+   "sha256": "7d606a93c5d59a9fd44630d05bdad950e458d830b9a7f59c99a4ff01f702607f"
+  },
+  "pano_exit.jpg": {
+   "kind": "JPEG grey, cylindrical 360 deg, azimuth clockwise from north (tools/navcam_pano.py)",
+   "credit": "NASA/JPL-Caltech; MSL Navcam mosaic products, PDS (doi:10.17189/dk0p-1d15)",
+   "stop": "exit",
+   "width": 4096,
+   "height": 1180,
+   "bytes": 427997,
+   "sha256": "91654bbb728b458e7ea28004b0c77d011cc64989ba3d39665a2137f66a2969f1"
+  },
+  "pano_bococo.jpg": {
+   "kind": "JPEG grey, cylindrical 360 deg, azimuth clockwise from north (tools/navcam_pano.py)",
+   "credit": "NASA/JPL-Caltech; MSL Navcam mosaic products, PDS (doi:10.17189/dk0p-1d15)",
+   "stop": "bococo",
+   "width": 4096,
+   "height": 1160,
+   "bytes": 414064,
+   "sha256": "9bee566d707f077b19909d32883fd7188cccb1dfe1bc7c19113a05f3625f72d2"
+  },
+  "pano_rio_frio.jpg": {
+   "kind": "JPEG grey, cylindrical 360 deg, azimuth clockwise from north (tools/navcam_pano.py)",
+   "credit": "NASA/JPL-Caltech; MSL Navcam mosaic products, PDS (doi:10.17189/dk0p-1d15)",
+   "stop": "rio_frio",
+   "width": 4096,
+   "height": 1249,
+   "bytes": 458831,
+   "sha256": "02b7680d09a8d1e9ed95e1958ca276400089d1dd7348136c4fa896076f47f2a1"
+  },
+  "pano_transition.jpg": {
+   "kind": "JPEG grey, cylindrical 360 deg, azimuth clockwise from north (tools/navcam_pano.py)",
+   "credit": "NASA/JPL-Caltech; MSL Navcam mosaic products, PDS (doi:10.17189/dk0p-1d15)",
+   "stop": "transition",
+   "width": 4096,
+   "height": 1268,
+   "bytes": 727759,
+   "sha256": "9416e9a33e57545a5608c70e1134f6ca4d6f9c77b4100535a0ef1bb4df8b628a"
+  },
+  "pano_valle_de_la_luna.jpg": {
+   "kind": "JPEG grey, cylindrical 360 deg, azimuth clockwise from north (tools/navcam_pano.py)",
+   "credit": "NASA/JPL-Caltech; MSL Navcam mosaic products, PDS (doi:10.17189/dk0p-1d15)",
+   "stop": "valle_de_la_luna",
+   "width": 4096,
+   "height": 1089,
+   "bytes": 719309,
+   "sha256": "6f33db6aa426d35ad21fb2dff1e6b4d9483fc24bd524222110bba939f5491deb"
+  },
+  "pano_nevado_sajama.jpg": {
+   "kind": "JPEG grey, cylindrical 360 deg, azimuth clockwise from north (tools/navcam_pano.py)",
+   "credit": "NASA/JPL-Caltech; MSL Navcam mosaic products, PDS (doi:10.17189/dk0p-1d15)",
+   "stop": "nevado_sajama",
+   "width": 4096,
+   "height": 1180,
+   "bytes": 703167,
+   "sha256": "5570f4a508b149dd1135b1c6669f1f7aa26d2abc7774873fa94ba8f534471b7d"
+  }
+ },
+ "sources": [
+  {
+   "name": "MSL Gale Merged DEM 1 m v3",
+   "credit": "Calef III, F. J., and Parker, T. (2016), PDS Annex, USGS",
+   "url": "https://planetarymaps.usgs.gov/mosaic/Mars/MSL/MSL_Gale_DEM_Mosaic_1m_v3.tif"
+  },
+  {
+   "name": "MSL Gale HiRISE LRGB colour orthophoto mosaic (25 cm COG)",
+   "credit": "USGS Astrogeology; HiRISE (NASA/JPL/University of Arizona)",
+   "url": "https://asc-pds-services.s3.us-west-2.amazonaws.com/mosaic/Mars/MSL/MSL_Gale_HiRISE-LRGB_78quads_sharp_cog.tif"
+  },
+  {
+   "name": "MSL PLACES localized_pos",
+   "credit": "NASA/JPL-Caltech, MSL PLACES (PDS)",
+   "url": "https://planetarydata.jpl.nasa.gov/img/data/msl/msl_places/data_localizations/localized_pos.csv"
+  }
+ ],
+ "measured_limits": {
+  "gate_1m": "FAIL: at native 1 m, 28.494% of the patch is >=15 deg vs 23.438% of rover-gentle reference ground (run 2026-11-11T10:06:42Z)",
+  "rover_check": "DOES NOT AGREE: median |DEM tilt - rover tilt| 4.43 deg, p90 14.35, signed median +3.4 deg (DEM steeper if positive), N 85; beats the shift baseline (run 2026-11-11T10:06:34Z)",
+  "ortho_alignment": "photo vs DEM best shift 2 m east, -1 m south; R2 0.076 at zero shift vs 0.08 best; taken as aligned within about 2 m, no correction applied",
+  "ortho_grid_snap": "photo snapped to the nearest 0.25 m pixel: residual -0.0072 m east, 0.0752 m south of the DEM cell edge"
+ },
+ "measured_values": {
+  "gate": {
+   "decision": "FAIL",
+   "patch_share_pct": 28.494,
+   "reference_share_pct": 23.438,
+   "needed_pct": 70.312,
+   "run_utc": "2026-11-11T10:06:42Z"
+  },
+  "rover_check": {
+   "outcome": "DOES NOT AGREE",
+   "n": 85,
+   "median_abs_deg": 4.43,
+   "p90_abs_deg": 14.35,
+   "signed_median_deg": 3.4,
+   "below_chance": true,
+   "shift_baseline_p5_deg": 4.54,
+   "per_stop": {
+    "agrees": 22,
+    "partial": 8,
+    "disagrees": 55
+   },
+   "run_utc": "2026-11-11T10:06:34Z"
+  },
+  "heldout_bias": {
+   "outcome": "PASS",
+   "n": 85,
+   "pooled_heldout_median_abs_uncorrected": 4.427,
+   "pooled_heldout_median_abs_corrected": 3.863,
+   "full_sample_median_deg": 3.401,
+   "full_sample_ci95_block8": [
+    2.409,
+    6.538
+   ],
+   "run_utc": "2026-11-12T03:05:07Z"
+  }
+ },
+ "assumptions": [
+  "slope bands and slope_3m use a 3 x 3 m box filter (choice informed by the gate; not a measured optimum)",
+  "route slope limit, walking speed, slope penalty and caution band are assumptions (route.json 'assumptions')"
+ ],
+ "unverified": [
+  "which cells come from HiRISE vs the single CTX backfill DEM",
+  "orthophoto licence/reuse wording (credit as listed)"
+ ],
+ "photo_light": {
+  "description": "Illumination baked into the orthophoto at the VISOR patch: HiRISE RED observation PSP_009149_1750 covers the whole patch (latitude -4.9437 to -4.6531, longitude 137.3501 to 137.4714). Whether it is the strip actually visible in the USGS colour mosaic at the patch is UNVERIFIED (the USGS product page was not readable). Values copied from the PDS label; sun elevation and azimuth are derived in tools/build_bundle.py.",
+  "observation": "PSP_009149_1750",
+  "label_url": "https://hirise-pds.lpl.arizona.edu/PDS/RDR/PSP/ORB_009100_009199/PSP_009149_1750/PSP_009149_1750_RED.LBL",
+  "page_url": "https://www.uahirise.org/PSP_009149_1750",
+  "start_time_utc": "2008-07-09T09:24:54",
+  "local_time_h": 15.48044,
+  "solar_longitude": 96.272867,
+  "incidence_angle": 58.808048,
+  "sub_solar_azimuth": 213.082441,
+  "north_azimuth": 269.999999,
+  "azimuth_convention": "SUB_SOLAR_AZIMUTH and NORTH_AZIMUTH are degrees clockwise from the line from the image centre to its right edge (HiRISE data dictionary, Observation Geometry): sun azimuth from north = SUB_SOLAR_AZIMUTH - NORTH_AZIMUTH",
+  "sun_elevation_deg": 31.19,
+  "sun_azimuth_deg": 303.1
+ }
+}

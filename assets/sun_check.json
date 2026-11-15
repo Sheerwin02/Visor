@@ -1,0 +1,39 @@
+{
+ "outcome": "PASS",
+ "n": 409,
+ "n_all": 452,
+ "sols": [
+  4618,
+  4625,
+  4634,
+  4650,
+  4687,
+  4711
+ ],
+ "max_abs_d_elevation_deg": 0.2716,
+ "median_abs_d_elevation_deg": 0.089,
+ "max_abs_d_azimuth_deg": 0.316,
+ "median_abs_d_azimuth_deg": 0.2325,
+ "rule": {
+  "step_s": 600,
+  "elevation_range_deg": [
+   5.0,
+   80.0
+  ],
+  "tolerance_deg": {
+   "elevation": 0.5,
+   "azimuth": 1.0
+  },
+  "written": "in tools/trek_sun.py before the first run"
+ },
+ "source": {
+  "name": "NASA Mars Trek sun-angle service (SPICE; NAIF 499 Mars, 10 Sun)",
+  "url": "https://trek.nasa.gov/mars/",
+  "endpoint": "https://trek.nasa.gov/getAzElfromT1"
+ },
+ "site": {
+  "lat_planetocentric": -4.805495075,
+  "lon_east": 137.379535793,
+  "note": "Trek latitude assumed planetocentric; ours planetographic"
+ }
+}

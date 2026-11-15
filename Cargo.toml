@@ -1,0 +1,32 @@
+# VISOR Rust workspace (layout: crates/ = libraries and CLIs, app/ = Bevy web client).
+# `cargo test` builds only default-members (fast); test the client with `cargo test -p visor-app`.
+[workspace]
+members = ["crates/terrain-core", "crates/prep", "crates/route-core", "crates/plan-worker", "app"]
+default-members = ["crates/terrain-core", "crates/prep", "crates/route-core"]
+resolver = "2"
+
+# Public web build: `trunk build --release --cargo-profile wasm-release` (from app/).
+# Size and speed are balanced per crate (measured): opt-level "z" everywhere gave 5.53 MB gzip but made the planner
+# about 1.7x slower than the "s" dev build; the planner (route-core, plan-worker) now gets full speed and the rest "s".
+[profile.wasm-release]
+inherits = "release"
+opt-level = "s"
+lto = "fat"
+codegen-units = 1
+panic = "abort"
+strip = false  # wasm-opt strips; wasm-bindgen needs the target_features section
+
+[profile.wasm-release.package.route-core]
+opt-level = 3
+
+[profile.wasm-release.package.plan-worker]
+opt-level = 3
+
+# Everyday web profile: thin LTO and parallel codegen use far less memory and build faster (files a little larger).
+# Use for local testing; build the public release with `trunk build --cargo-profile wasm-release` (from app/).
+[profile.wasm-dev]
+inherits = "release"
+opt-level = "s"
+lto = "thin"
+codegen-units = 16
+panic = "abort"

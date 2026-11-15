@@ -1,0 +1,8 @@
+# Python pipeline dependencies (versions tested Nov 2026 on Python 3.12)
+numpy==2.2.1
+scipy==1.18.1
+rasterio==1.5.2
+pillow==13.0.0
+pytest
+websocket-client  # tools/dev/browser_smoke.py only
+DracoPy>=2.2  # tools/astronaut.py (Draco-compressed NASA model)

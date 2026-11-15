@@ -1,0 +1,87 @@
+{
+ "format": 2,
+ "source": {
+  "name": "NASA 3D Resources: Astronaut (Astronaut.glb)",
+  "url": "https://github.com/nasa/NASA-3D-Resources/tree/master/3D%20Models/Astronaut",
+  "credit": "NASA 3D Resources (model); used without NASA endorsement",
+  "terms": "NASA 3D resources are free to download and use (NASA Images and Media Usage Guidelines)"
+ },
+ "frame": "Y up, faces +Z, model's left = +X; positions in metres from the soles",
+ "suit_height_m": 1.85,
+ "suit_height_label": "ASSUMPTION (display only; the model has no stated scale)",
+ "model_units_per_m": 40.142,
+ "vertices": 3978,
+ "indices": 19143,
+ "pos_offset": 0,
+ "nrm_offset": 47736,
+ "col_offset": 95472,
+ "joints_offset": 111384,
+ "weights_offset": 143208,
+ "idx_offset": 206856,
+ "joints": [
+  {
+   "name": "torso",
+   "pivot_m": [
+    0.0,
+    0.8004,
+    0.0
+   ]
+  },
+  {
+   "name": "arm_l",
+   "pivot_m": [
+    0.3612,
+    1.2987,
+    0.0747
+   ]
+  },
+  {
+   "name": "arm_r",
+   "pivot_m": [
+    -0.3612,
+    1.2987,
+    0.0747
+   ]
+  },
+  {
+   "name": "leg_l",
+   "pivot_m": [
+    0.137,
+    0.8004,
+    0.0747
+   ]
+  },
+  {
+   "name": "leg_r",
+   "pivot_m": [
+    -0.137,
+    0.8004,
+    0.0747
+   ]
+  }
+ ],
+ "blend_model_units": {
+  "arm_x": [
+   12.0,
+   17.0
+  ],
+  "arm_min_y": [
+   5.0,
+   8.0
+  ],
+  "leg_y": [
+   -3.0,
+   -9.0
+  ],
+  "backpack_z": [
+   -6.0,
+   -4.0
+  ],
+  "side_x": [
+   -1.5,
+   1.5
+  ]
+ },
+ "layout": "pos f32x3, nrm f32x3, col u8x4 sRGB, joints u16x4, weights f32x4 (sum 1), idx u32",
+ "method": "tools/astronaut.py v2: Draco decode, Y-up, vertices shared, smooth joint weights (skinned in the app)"
+}

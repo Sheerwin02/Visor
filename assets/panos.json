@@ -1,0 +1,223 @@
+{
+ "rule": "(fixed before looking at any image, no hand-picking):\n- data: PDS MSL Navcam mosaic bundle MSLMOS_1XXX (doi:10.17189/dk0p-1d15), product\n  N_R000_<sol>_ILT<site>CYL_S_<drive>_UNCORM1 for each stop's PLACES sol / site / drive in assets/stops.json;\n  a stop without that exact product gets no panorama (never a nearby one);\n- projection from the label only: CYLINDRICAL, azimuth = START_AZIMUTH + sample / MAP_RESOLUTION, clockwise, in SITE_FRAME\n  (x north: checked on the six station photos, tools/photo_view.py, where the site-frame attitude heading equals the PLACES\n  heading); elevation = (ZERO_ELEVATION_LINE - line) / MAP_RESOLUTION; checks: 360 deg across, elevation limits within\n  ELEV_TOL_DEG of MSL:MAXIMUM/MINIMUM_ELEVATION, image size = RECORD_BYTES x (FILE_RECORDS - 2 header records);\n  AMENDMENT (after the first build, before any image was looked at): the tolerance was 1 pixel; the first label differed by\n  1-3 pixels (0.05-0.14 deg: the keywords appear to give the data extent, not the image edges), so it is now ELEV_TOL_DEG and\n  each panorama records its differences (el_label_diff_deg);\n- display: 16-bit radiance -> 8 bit by a linear stretch between the 0.5th and 99.5th percentile of non-zero pixels (0 =\n  no data, kept black), resized to PANO_W wide (aspect kept), JPEG; a display choice, not a measurement.",
+ "doi": "10.17189/dk0p-1d15",
+ "credit": "NASA/JPL-Caltech; MSL Navcam mosaic products, PDS (doi:10.17189/dk0p-1d15)",
+ "panos": [
+  {
+   "stop": "exit",
+   "sol": 4618,
+   "site": "118",
+   "drive": "198",
+   "product": "N_R000_4618_ILT118CYL_S_0198_UNCORM1",
+   "file": "pano_exit.jpg",
+   "width": 4096,
+   "height": 1180,
+   "start_az_deg": 0.0,
+   "el_max_deg": 24.305,
+   "el_min_deg": -79.443,
+   "el_label_diff_deg": [
+    0.094,
+    0.047
+   ],
+   "source_px": [
+    7665,
+    2209
+   ],
+   "px_per_deg_source": 21.292,
+   "instrument": "NAVIGATION CAMERA RIGHT STRING B",
+   "start_time": 2025.0,
+   "coverage": 0.791,
+   "stretch": {
+    "percentiles": [
+     0.5,
+     99.5
+    ],
+    "radiance_dn": [
+     1147.0,
+     32766.0
+    ]
+   },
+   "url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLMOS_1XXX/DATA/SOL04618/N_R000_4618_ILT118CYL_S_0198_UNCORM1.IMG"
+  },
+  {
+   "stop": "bococo",
+   "sol": 4625,
+   "site": "118",
+   "drive": "762",
+   "product": "N_R000_4625_ILT118CYL_S_0762_UNCORM1",
+   "file": "pano_bococo.jpg",
+   "width": 4096,
+   "height": 1160,
+   "start_az_deg": 0.0,
+   "el_max_deg": 24.302,
+   "el_min_deg": -77.614,
+   "el_label_diff_deg": [
+    0.06,
+    0.047
+   ],
+   "source_px": [
+    7665,
+    2170
+   ],
+   "px_per_deg_source": 21.292,
+   "instrument": "NAVIGATION CAMERA RIGHT STRING B",
+   "start_time": 2025.0,
+   "coverage": 0.777,
+   "stretch": {
+    "percentiles": [
+     0.5,
+     99.5
+    ],
+    "radiance_dn": [
+     1031.0,
+     32641.0
+    ]
+   },
+   "url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLMOS_1XXX/DATA/SOL04625/N_R000_4625_ILT118CYL_S_0762_UNCORM1.IMG"
+  },
+  {
+   "stop": "rio_frio",
+   "sol": 4634,
+   "site": "118",
+   "drive": "1608",
+   "product": "N_R000_4634_ILT118CYL_S_1608_UNCORM1",
+   "file": "pano_rio_frio.jpg",
+   "width": 4096,
+   "height": 1249,
+   "start_az_deg": 0.0,
+   "el_max_deg": 24.797,
+   "el_min_deg": -84.963,
+   "el_label_diff_deg": [
+    0.063,
+    0.047
+   ],
+   "source_px": [
+    7665,
+    2337
+   ],
+   "px_per_deg_source": 21.292,
+   "instrument": "NAVIGATION CAMERA RIGHT STRING B",
+   "start_time": 2025.0,
+   "coverage": 0.714,
+   "stretch": {
+    "percentiles": [
+     0.5,
+     99.5
+    ],
+    "radiance_dn": [
+     647.0,
+     24669.0
+    ]
+   },
+   "url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLMOS_1XXX/DATA/SOL04634/N_R000_4634_ILT118CYL_S_1608_UNCORM1.IMG"
+  },
+  {
+   "stop": "transition",
+   "sol": 4650,
+   "site": "118",
+   "drive": "2304",
+   "product": "N_R000_4650_ILT118CYL_S_2304_UNCORM1",
+   "file": "pano_transition.jpg",
+   "width": 4096,
+   "height": 1268,
+   "start_az_deg": 0.0,
+   "el_max_deg": 27.969,
+   "el_min_deg": -83.481,
+   "el_label_diff_deg": [
+    0.088,
+    0.047
+   ],
+   "source_px": [
+    7665,
+    2373
+   ],
+   "px_per_deg_source": 21.292,
+   "instrument": "NAVIGATION CAMERA RIGHT STRING B",
+   "start_time": 2025.0,
+   "coverage": 0.705,
+   "stretch": {
+    "percentiles": [
+     0.5,
+     99.5
+    ],
+    "radiance_dn": [
+     680.0,
+     8703.0
+    ]
+   },
+   "url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLMOS_1XXX/DATA/SOL04650/N_R000_4650_ILT118CYL_S_2304_UNCORM1.IMG"
+  },
+  {
+   "stop": "valle_de_la_luna",
+   "sol": 4687,
+   "site": "119",
+   "drive": "1722",
+   "product": "N_R000_4687_ILT119CYL_S_1722_UNCORM1",
+   "file": "pano_valle_de_la_luna.jpg",
+   "width": 4096,
+   "height": 1089,
+   "start_az_deg": 0.0,
+   "el_max_deg": 21.699,
+   "el_min_deg": -74.018,
+   "el_label_diff_deg": [
+    0.051,
+    0.047
+   ],
+   "source_px": [
+    7665,
+    2038
+   ],
+   "px_per_deg_source": 21.2921,
+   "instrument": "NAVIGATION CAMERA RIGHT STRING B",
+   "start_time": 2025.0,
+   "coverage": 0.82,
+   "stretch": {
+    "percentiles": [
+     0.5,
+     99.5
+    ],
+    "radiance_dn": [
+     900.0,
+     8338.0
+    ]
+   },
+   "url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLMOS_1XXX/DATA/SOL04687/N_R000_4687_ILT119CYL_S_1722_UNCORM1.IMG"
+  },
+  {
+   "stop": "nevado_sajama",
+   "sol": 4711,
+   "site": "120",
+   "drive": "82",
+   "product": "N_R000_4711_ILT120CYL_S_0082_UNCORM1",
+   "file": "pano_nevado_sajama.jpg",
+   "width": 4096,
+   "height": 1180,
+   "start_az_deg": 0.0,
+   "el_max_deg": 25.878,
+   "el_min_deg": -77.87,
+   "el_label_diff_deg": [
+    0.084,
+    0.047
+   ],
+   "source_px": [
+    7665,
+    2209
+   ],
+   "px_per_deg_source": 21.2921,
+   "instrument": "NAVIGATION CAMERA RIGHT STRING B",
+   "start_time": 2025.0,
+   "coverage": 0.778,
+   "stretch": {
+    "percentiles": [
+     0.5,
+     99.5
+    ],
+    "radiance_dn": [
+     1115.0,
+     11692.0
+    ]
+   },
+   "url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLMOS_1XXX/DATA/SOL04711/N_R000_4711_ILT120CYL_S_0082_UNCORM1.IMG"
+  }
+ ]
+}

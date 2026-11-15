@@ -1,0 +1,30 @@
+{
+ "rule": "doc: Navcam check rule",
+ "product": "NLB_816331121XYZ_F1200082NCAM00309M1",
+ "pixels_valid": 601193,
+ "rover_places": {
+  "northing": -284993.193,
+  "easting": 8143217.465,
+  "elevation": -3607.98
+ },
+ "rover_telemetry_site_frame": [
+  -0.488259,
+  -2.65085,
+  -0.312269
+ ],
+ "height_check": {
+  "n": 601193,
+  "median_dem_minus_navcam_m": 0.187,
+  "p90_abs_m": 0.292,
+  "limit_m": 1.0
+ },
+ "placement": "ok",
+ "pixels_after_rne_filter": 601193,
+ "comparison": "too little data (12 cells < 100)",
+ "point_cloud": {
+  "file": "navcam_4718_points.bin",
+  "points": 50000,
+  "layout": "float32 LE x4: e_m, n_m, height above z_offset_m, slope_deg",
+  "credit": "NASA/JPL-Caltech; Maki, J. (2024), MSL Navcam Processed Data Bundle, NASA PDS, doi:10.17189/2pw6-a555"
+ }
+}

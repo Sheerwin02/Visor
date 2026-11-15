@@ -1,0 +1,32 @@
+SYNTHETIC SENSITIVITY TEST. Terrain is invented from published widths; ridge relief is swept. Not a Gale result.
+
+[1] How much of the ground is >=15 deg at 1 m, by ridge relief (profile: cosine, base width 4.5 m)
+relief 0.3 m: share >=15 deg 0.000, >=25 deg 0.000, max slope 10 deg
+relief 0.5 m: share >=15 deg 0.001, >=25 deg 0.000, max slope 17 deg
+relief 1.0 m: share >=15 deg 0.283, >=25 deg 0.031, max slope 31 deg
+relief 2.0 m: share >=15 deg 0.409, >=25 deg 0.316, max slope 50 deg
+
+[2] Resolution: same terrain (relief 1.0 m) sampled at coarser cells (block mean), slope at that cell size
+cell 0.25 m: share >=15 deg 0.306, max slope 35 deg
+cell 1.00 m: share >=15 deg 0.283, max slope 31 deg
+cell 2.00 m: share >=15 deg 0.028, max slope 21 deg
+cell 5.00 m: share >=15 deg 0.000, max slope 9 deg
+
+[3] Smoothing: 1 m cell, relief 1.0 m, share >=15 deg after gaussian smoothing
+smooth 0 m: share >=15 deg 0.283, max slope 31 deg
+smooth 1 m: share >=15 deg 0.029, max slope 17 deg
+smooth 2 m: share >=15 deg 0.000, max slope 9 deg
+
+[4] Looks-flat share of ground >=15 deg (tol 0.10, realistic Gale azimuths, no shadows), 1 m cell, by relief and sun elevation: min / mean / max over azimuths
+relief 0.5 m, sun 15 deg: 0.00 / 0.04 / 0.13
+relief 0.5 m, sun 30 deg: 0.00 / 0.14 / 0.31
+relief 0.5 m, sun 50 deg: 0.25 / 0.35 / 0.49
+relief 0.5 m, sun 60 deg: 0.35 / 0.50 / 0.60
+relief 1.0 m, sun 15 deg: 0.04 / 0.06 / 0.07
+relief 1.0 m, sun 30 deg: 0.08 / 0.12 / 0.15
+relief 1.0 m, sun 50 deg: 0.17 / 0.22 / 0.27
+relief 1.0 m, sun 60 deg: 0.35 / 0.36 / 0.36
+relief 2.0 m, sun 15 deg: 0.03 / 0.04 / 0.06
+relief 2.0 m, sun 30 deg: 0.05 / 0.08 / 0.12
+relief 2.0 m, sun 50 deg: 0.14 / 0.16 / 0.19
+relief 2.0 m, sun 60 deg: 0.23 / 0.28 / 0.34

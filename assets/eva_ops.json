@@ -1,0 +1,81 @@
+{
+ "description": "EVA operations values for the survival margin and two-person EVA (doc Proposal tab, 'Survival margin and two-person EVA', approved). Every value is quoted from the source PDF (text extracted and read); lunar documents, used for Mars as labelled ('Mars walk-back ranges are forward work').",
+ "sources": {
+  "conops": {
+   "title": "Exploration EVA System Concept of Operations, EVA-EXP-0042 Rev B",
+   "publisher": "NASA",
+   "date": "2020-10-19",
+   "url": "https://www.nasa.gov/wp-content/uploads/2017/02/eva-exp-0042_xeva_system_con_ops_rev_b_final_dtd_10192020_ref_doc.pdf"
+  },
+  "artemis_p1": {
+   "title": "Exploration EVA System Concept of Operations Summary for Artemis Phase 1 Lunar Surface Mission, EVA-EXP-0075",
+   "publisher": "NASA",
+   "url": "https://hulc.nianet.org/wp-content/uploads/2023/03/Exploration-EVA-System-Concept-of-Operations-Summary-for-Artemis-Phase-1-Lunar-Surface-Mission.pdf"
+  },
+  "basalt": {
+   "title": "BASALT analog EVA operations (Astrobiology 19(3), 2019)",
+   "publisher": "NASA BASALT team",
+   "url": "https://journals.sagepub.com/doi/pdf/10.1089/ast.2018.1912",
+   "note": "seen only as a search summary (publisher page returned 403); used only for the labelled 'analog practice' role split"
+  }
+ },
+ "eva_hours": {
+  "options": [
+   4,
+   6,
+   8
+  ],
+  "default": 6,
+  "label": "Assumption (choice within the NASA range)",
+  "source": "conops",
+  "page": 29,
+  "quote": "The xEVA suit will support EVAs of up to 8 hours in duration (6±2 hours)."
+ },
+ "egress_ingress_h": {
+  "value": 1,
+  "label": "NASA ConOps (Moon)",
+  "source": "conops",
+  "page": 30,
+  "quote": "two to eight hours in duration (hour for egress/ingress and 1.5 - 7.5 hours of tasks)"
+ },
+ "emergency_extension_h": {
+  "value": 1,
+  "label": "NASA ConOps (Moon)",
+  "source": "conops",
+  "page": 30,
+  "quote": "EVAs may extend an additional hour for emergency and off- nominal situations."
+ },
+ "rescue_limit_min": {
+  "value": 60,
+  "label": "NASA ConOps (Moon)",
+  "source": "conops",
+  "page": 125,
+  "quote": "The rescuer will need to be capable of getting the ICM into a safe haven (rover or habitat) within 60 minutes in an average thermally neutral environment."
+ },
+ "single_rescuer": {
+  "label": "NASA ConOps (Moon)",
+  "source": "conops",
+  "page": 125,
+  "quote": "there may be times where only one crewmember is available to perform the rescue"
+ },
+ "pairs": {
+  "label": "NASA ConOps (Moon)",
+  "source": "conops",
+  "page": 30,
+  "quote": "still enabling two crewmembers to act as buddies"
+ },
+ "mars": {
+  "label": "NASA ConOps",
+  "source": "conops",
+  "page": 30,
+  "quote": "EVAs on Mars are still in work, but will likely have at least the frequency and duration of those for the sustained lunar missions in Artemis Phase 2.",
+  "page_walkback": 41,
+  "quote_walkback": "Development of the mEMU and associated walk back ranges are forward work."
+ },
+ "roles": {
+  "label": "Analog practice",
+  "source": "basalt",
+  "ev1": "leads the walk: navigation and the timeline",
+  "ev2": "leads the science at each station"
+ }
+}

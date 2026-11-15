@@ -1,0 +1,120 @@
+{
+ "note": "Which NASA missions VISOR uses data from, and where. Curated by hand; every bundle file named must be in assets/manifest.json (tools/validate_bundle.py checks it). 'live' = streamed by the Mars view from the named tile service, not stored in the bundle.",
+ "missions": [
+  {
+   "mission": "Mars Science Laboratory (Curiosity rover)",
+   "short": "Curiosity",
+   "uses": [
+    {
+     "instrument": "PLACES localizations",
+     "for": "rover track, rover-checked ground, Curiosity's full traverse in the Mars view",
+     "files": [
+      "rover_path.json",
+      "rover_check.json",
+      "overview.json"
+     ]
+    },
+    {
+     "instrument": "REMS",
+     "for": "weather on the sol",
+     "files": [
+      "conditions.json"
+     ]
+    },
+    {
+     "instrument": "RAD",
+     "for": "dose rate on the stop sols (context only)",
+     "files": [
+      "radiation.json"
+     ]
+    },
+    {
+     "instrument": "ChemCam, APXS, CheMin",
+     "for": "stop card facts; chemistry layer and per-station oxide tables (ChemCam MOC, APXS)",
+     "files": [
+      "stops.json",
+      "chemistry.json"
+     ]
+    },
+    {
+     "instrument": "Navcam",
+     "for": "stop photos and the 3D point check at sol 4718",
+     "files": [
+      "navcam_4718_points.bin",
+      "navcam_check.json"
+     ]
+    }
+   ]
+  },
+  {
+   "mission": "Mars Reconnaissance Orbiter",
+   "short": "MRO",
+   "uses": [
+    {
+     "instrument": "HiRISE",
+     "for": "1 m terrain (stereo DEM mosaic) and the 25 cm photo",
+     "files": [
+      "heightmap.bin",
+      "ortho_0p5m.jpg",
+      "ortho_0p25m_n.jpg",
+      "ortho_0p25m_s.jpg"
+     ]
+    },
+    {
+     "instrument": "CTX",
+     "for": "Gale mosaic basemap; global 5 m mosaic in the Mars view",
+     "files": [
+      "trek_curiosity_ctx_mosaic.jpg"
+     ],
+     "live": "NASA/JPL/MSSS/Caltech Murray Lab/Esri CTX mosaic"
+    }
+   ]
+  },
+  {
+   "mission": "2001 Mars Odyssey",
+   "short": "Odyssey",
+   "uses": [
+    {
+     "instrument": "THEMIS",
+     "for": "day and night infrared (thermal) maps in the Mars view; too coarse for the walk patch (Trust tab)",
+     "files": [
+      "trek_THEMIS_DayIR_ControlledMosaics_100m_v2_oct2018.jpg",
+      "trek_THEMIS_NightIR_ControlledMosaics_100m_v2_oct2018.jpg"
+     ],
+     "live": "NASA Mars Trek, THEMIS day/night IR controlled mosaics 100 m"
+    }
+   ]
+  },
+  {
+   "mission": "Mars Global Surveyor",
+   "short": "MGS",
+   "uses": [
+    {
+     "instrument": "TES",
+     "for": "thermal inertia and glass/clay readiness rows (context)",
+     "files": [
+      "trek_layers.json"
+     ]
+    },
+    {
+     "instrument": "MOLA",
+     "for": "colour relief basemap in the Mars view",
+     "files": [],
+     "live": "NASA Mars Trek, MGS MOLA global colour hillshade"
+    }
+   ]
+  },
+  {
+   "mission": "Viking Orbiters 1 and 2",
+   "short": "Viking",
+   "uses": [
+    {
+     "instrument": "Visual Imaging Subsystem",
+     "for": "global colour mosaic in the Mars view",
+     "files": [],
+     "live": "NASA Mars Trek, Viking MDIM 2.1 colour mosaic"
+    }
+   ]
+  }
+ ]
+}
