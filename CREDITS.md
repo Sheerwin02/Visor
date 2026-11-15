@@ -71,7 +71,7 @@ University of Arizona or any mission team.** No NASA or JPL logos are used. Ever
 | DracoPy 2.x | `tools/astronaut.py` (decoding the Draco-compressed NASA astronaut model) | Apache-2.0 |
 | websocket-client | `tools/dev/` headless browser checks (Chrome DevTools protocol) | Apache-2.0 |
 
-## AI assistance
+## Super Intelligence (SI) assistance
 
-Parts of the research, code and documents were produced with an AI assistant (Claude, Anthropic); see "Use of AI" in README.md.
-The full AI-use disclosure is given in the Space Apps submission form.
+Parts of the research, code and documents were produced with an SI (AI) assistant (Claude, Anthropic); see "Use of Super Intelligence (SI)" in README.md. The demo video narration is an SI-generated voice (Qwen3-TTS).
+The full SI-use disclosure is given in the Space Apps submission form.

@@ -58,10 +58,10 @@ Python 3.12 (`pip install -r tools/requirements.txt`) and Rust (pinned in `rust-
 measurements (`tools/gate_patch.py`, `tools/rover_check.py`), `tools/build_bundle.py build` and `tools/validate_bundle.py`.
 Each script's docstring gives its inputs.
 
-## Use of AI
+## Use of Super Intelligence (SI)
 
 VISOR is the author's idea and design; the author set the scope, approved every test rule before it ran and made each
-decision. An AI assistant (Claude by Anthropic, through Claude Code) was used as a tool for:
+decision. An SI (AI) assistant, Claude by Anthropic through Claude Code, was used as a tool for:
 
 - **Research:** reading and summarising NASA, USGS, PDS, JPL and HiRISE documents and data formats. Every fact shown in
   the app links to its source, with the quote checked on the live page.
@@ -73,8 +73,8 @@ decision. An AI assistant (Claude by Anthropic, through Claude Code) was used as
 
 Checked by: 170 client tests, Rust crate tests, Python tests, a bundle validator and headless-browser checks; results
 cross-checked against independent references (Python reference code, NASA Mars Trek sun angles, the REMS sunrise/sunset
-feed, Curiosity's measured tilt). No images or video footage were AI-generated (the demo video is a screen recording of
-the app); the demo video's narration is an AI voice (Qwen3-TTS), labelled on screen and in the file's metadata. No NASA
+feed, Curiosity's measured tilt). No images or video footage were SI-generated (the demo video is a screen recording of
+the app); the demo video's narration is an SI-generated voice (Qwen3-TTS), labelled on screen and in the file's metadata. No NASA
 data was altered.
 
 ## Licence
